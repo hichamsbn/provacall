@@ -169,3 +169,59 @@ main{counter-reset:sec}
 .deco-dots::before{background-image:radial-gradient(circle,var(--faint) 1.25px,transparent 1.6px);opacity:.5}
 .deco-dots.b::before{-webkit-mask-image:radial-gradient(55% 70% at 90% 85%,#000,transparent);mask-image:radial-gradient(55% 70% at 90% 85%,#000,transparent)}
 .deco-dots.bl::before{-webkit-mask-image:radial-gradient(50% 70% at 8% 82%,#000,transparent);mask-image:radial-gradient(50% 70% at 8% 82%,#000,transparent)}
+
+/* ───────────── mobile ─────────────
+   Une colonne, des cartes empilées (plus de carrousel coupé), un téléphone à l'échelle de l'écran,
+   moins de vide entre les sections, et le bouton principal toujours à portée de pouce. */
+.mcta{display:none}
+@media (max-width:700px){
+  .section{padding:68px 0}
+  h2{font-size:clamp(30px,8.6vw,38px);line-height:1.1}
+  .section h2::before,.demo h2::before{margin-bottom:14px}
+  .head{margin-bottom:28px}
+  .lead{font-size:16.5px}
+
+  .hero{padding:80px 0 8px}
+  .pitch h1{font-size:clamp(38px,11.4vw,50px);line-height:1.07;margin-bottom:16px}
+  .pitch .lead{max-width:none;margin-bottom:24px}
+  .ctas{gap:6px}
+  .ctas .btn{width:100%;height:56px;font-size:17px}
+  .ctas .link{width:100%;justify-content:center;height:48px}
+  .stage{min-height:0;padding:28px 0 32px}
+  .rings{width:620px;height:620px}
+  .iphone{zoom:.84;transform:none}
+  .hero-foot{margin-top:4px}
+  .hero-foot>div{justify-content:center}
+
+  .demo{padding:36px 0 28px}
+  .demo .head{text-align:left;margin-bottom:22px}
+  .demo .head .lead{margin-left:0}
+  .frame{border-radius:10px}
+  .vctl{right:8px;top:8px;gap:6px}
+  .snd{height:34px}
+  #demo-sound{width:34px;padding:0;gap:0;justify-content:center;font-size:0}
+
+  .deco-rings::before{display:none}
+  .deco-dots::before{opacity:.28}
+
+  .cards,.cards.three{grid-auto-flow:row;grid-auto-columns:auto;grid-template-columns:1fr;gap:10px;overflow:visible;margin:0;padding:0;scroll-snap-type:none}
+  .card{min-height:0;padding:20px 20px 22px}
+  .card .ic,.card .n{margin-bottom:16px}
+  .card h3{margin-top:0}
+  .card:hover{transform:none}
+
+  .report{gap:28px}
+  .points{margin:22px 0 24px;gap:16px}
+  .report .iphone{zoom:.9}
+
+  .band{padding:22px 20px}
+  .band .btn{width:100%;height:52px}
+  .faq summary{font-size:17px;padding:18px 36px 18px 0}
+  .footer{padding-bottom:84px}
+
+  .mcta{display:flex;position:fixed;left:14px;right:14px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:40;height:54px;font-size:16.5px;
+    box-shadow:0 14px 34px -12px rgba(0,0,0,.5);transform:translateY(90px);opacity:0;pointer-events:none;transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .25s}
+  .mcta.show{transform:none;opacity:1;pointer-events:auto}
+  .pf-lock .mcta{display:none}
+  .pc-themes{bottom:auto;top:8px}
+}

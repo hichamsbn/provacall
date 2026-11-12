@@ -22,8 +22,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600&family=Inter:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@1,8..60,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<script src="fx.js"></script>
+<link rel="stylesheet" href="style.css?v=4">
+<script src="fx.js?v=4"></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why not just call our agent ourselves?", "acceptedAnswer": {"@type": "Answer", "text": "You can, and you should. But a few calls by your team only cover the cases you think of, in your own voice. We run the same business scenarios every time, with different accents, speech rates and moods, and check every criterion line by line. Re-run them after each change and you see exactly what got better or worse."}}, {"@type": "Question", "name": "Does it work with our platform?", "acceptedAnswer": {"@type": "Answer", "text": "If your agent has a phone number, yes: Vapi, Retell, Bland, Synthflow, your own stack, it makes no difference to us. If it also has an HTTP API, we can run the scenarios in text mode first."}}, {"@type": "Question", "name": "Can you write scenarios for our business?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. We start from our library (insurance, banking, healthcare, automotive, bookings, e-commerce…) and adapt it to your knowledge base: your products, your rules, and above all what your agent must never say or promise."}}, {"@type": "Question", "name": "Will test calls disturb our team?", "acceptedAnswer": {"@type": "Answer", "text": "No. We call during the time slots you choose, from a number we give you, so you can tag it and leave it out of your stats."}}, {"@type": "Question", "name": "Do you fix what you find?", "acceptedAnswer": {"@type": "Answer", "text": "Every failure comes with the exact quote and a suggested fix, usually a change to your prompt or your knowledge base. We then re-run the same scenarios to check the fix actually works and broke nothing else."}}, {"@type": "Question", "name": "What happens after the free pilot?", "acceptedAnswer": {"@type": "Answer", "text": "You keep the report. If it was useful, pick a plan to test every release; if not, you owe us nothing."}}, {"@type": "Question", "name": "How do you connect to our agent?", "acceptedAnswer": {"@type": "Answer", "text": "By phone: we call the number of your agent like a real customer would, from our own line. If your agent has an HTTP API, we can also run scenarios in text mode, faster and cheaper, before the phone tests."}}, {"@type": "Question", "name": "What is in a scenario?", "acceptedAnswer": {"@type": "Answer", "text": "A caller persona (age, regional accent, speech rate, mood, background), the information they give (plate, contract number, address…), scripted behaviours (corrects a number, refuses a retention offer, mentions a burning smell) and pass/fail criteria, including critical failures."}}, {"@type": "Question", "name": "How are calls judged?", "acceptedAnswer": {"@type": "Answer", "text": "Exact data is checked by deterministic rules: was the plate or phone number read back exactly? Safety, tone, escalation and made-up facts are judged by an AI evaluator against your knowledge base. Every verdict comes with the quote that justifies it."}}, {"@type": "Question", "name": "Which languages and accents?", "acceptedAnswer": {"@type": "Answer", "text": "French first, with regional personas (South, North, Alsace, Belgium, Switzerland, Québec, West Africa). We also run calls in German, Spanish, Italian and English."}}, {"@type": "Question", "name": "What about data and compliance?", "acceptedAnswer": {"@type": "Answer", "text": "Test calls use fictional callers and fictional data only. Recordings are deleted on request. We check the AI disclosure required by the EU AI Act in every call. EU hosting and a DPA are on our roadmap for the Enterprise plan."}}]}</script>
 <style>
 /* =============================== HERO =============================== */
@@ -298,7 +298,7 @@ table.cr .res.ko{background:var(--ink);color:#fff}
 }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600&family=Figtree:wght@400;500&family=Geist+Mono:wght@500&family=Hanken+Grotesk:wght@500;600&family=Inter+Tight:wght@500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="system.css">
+<link rel="stylesheet" href="system.css?v=4">
 </head>
 <body>
 <main>
@@ -786,6 +786,15 @@ table.cr .res.ko{background:var(--ink);color:#fff}
   if (reduce.addEventListener) reduce.addEventListener("change", function () { if (!reduce.matches) loop(); });
 })();
 </script>
-<script src="pilot.js"></script>
+<a class="btn btn-dark mcta" data-action="pilot" href="#tarifs">Book a free pilot</a>
+<script>
+/* mobile : le bouton principal reste à portée de pouce une fois le hero passé, et s'efface devant le pied de page */
+(function(){var b=document.querySelector(".mcta"),c=document.querySelector(".hero .ctas"),f=document.querySelector(".footer");
+if(!b||!c||!("IntersectionObserver" in window))return;var past=false,end=false;
+function up(){b.classList.toggle("show",past&&!end)}
+new IntersectionObserver(function(e){past=!e[0].isIntersecting&&e[0].boundingClientRect.top<0;up()}).observe(c);
+if(f)new IntersectionObserver(function(e){end=e[0].isIntersecting;up()}).observe(f);})();
+</script>
+<script src="pilot.js?v=4"></script>
 </body>
 </html>

@@ -29,7 +29,7 @@
   root.setAttribute("data-theme", theme);
   var local = /^(localhost|127\.0\.0\.1|)$/.test(location.hostname) || /[?&]theme=/.test(location.search);
   if (local) document.addEventListener("DOMContentLoaded", function () {
-    if (!document.querySelector('link[href$="system.css"]')) return;
+    if (!document.querySelector('link[href*="system.css"]')) return;
     var bar = document.createElement("div");
     bar.className = "pc-themes";
     THEMES.forEach(function (t) {
