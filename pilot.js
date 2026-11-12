@@ -44,6 +44,9 @@
       '<button class="pf-close" type="button" aria-label="Close">' + icon("M6 6l12 12M18 6L6 18") + '</button></div>' +
       '<div class="pf-stage"></div>';
     document.body.appendChild(root);
+    var hp = document.createElement("input"); hp.type = "text"; hp.name = "_honey"; hp.tabIndex = -1; hp.autocomplete = "off";
+    hp.setAttribute("aria-hidden", "true"); hp.style.cssText = "position:absolute;left:-9999px;opacity:0;height:0;width:0"; hp.id = "pf-honey";
+    root.appendChild(hp);
     root.querySelector(".pf-close").onclick = close;
     root.querySelector(".pf-back").onclick = function () { if (i > 0) go(i - 1, -1); };
     root.addEventListener("keydown", onKey);
@@ -160,7 +163,7 @@
       if (btn) { e.preventDefault(); btn.click(); }
     }
     if (e.key === "Tab") { // garder le focus dans la fenêtre
-      var f = root.querySelectorAll("button:not([disabled]),input"), first = f[0], lastF = f[f.length - 1];
+      var f = root.querySelectorAll("button:not([disabled]),input:not(#pf-honey)"), first = f[0], lastF = f[f.length - 1];
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); lastF.focus(); }
       else if (!e.shiftKey && document.activeElement === lastF) { e.preventDefault(); first.focus(); }
     }
@@ -182,7 +185,8 @@
       company: answers.company, email: answers.email,
       testing: answers.who, use_cases: (answers.use || []).join(", "),
       languages: (answers.lang || []).join(", "),
-      page: location.href
+      page: location.href,
+      _template: "table", _captcha: "false", _honey: (document.getElementById("pf-honey") || {}).value || ""   // options FormSubmit ; _honey = piège à robots (doit rester vide)
     };
     if (!C.leadEndpoint) { // pas encore d'outil de réception : email pré-rempli
       location.href = "mailto:" + (C.contactEmail || "") + "?subject=" + encodeURIComponent(payload._subject) +
@@ -196,6 +200,9 @@
       body: JSON.stringify(payload)
     }).then(function (r) {
       if (!r.ok) throw new Error(r.status);
+      return r.json().catch(function () { return { success: true }; });
+    }).then(function (j) {
+      if (j && (j.success === false || j.success === "false")) throw new Error(j.message || "rejected");
       location.href = "merci.html";
     }).catch(function () {
       nx.disabled = false;

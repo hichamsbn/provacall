@@ -7,9 +7,9 @@
   /* ====== CONFIGURATION — à remplir avant la mise en ligne (voir site/README.md) ====== */
   window.VOCALQA = {
     stripeLink: "",                       // Stripe Payment Link de l'audit à 249 € (vide = le bouton ouvre un email)
-    contactEmail: "contact@example.com",  // À REMPLACER par ton email de contact
+    contactEmail: "hicham.wsabouni@gmail.com",  // email de contact (visible dans le code de la page)
     bookingLink: "",                      // Lien Calendly (vide = les boutons de contact ouvrent un email)
-    leadEndpoint: ""                      // URL qui reçoit les demandes de pilote (ex. Formspree). Vide = email pré-rempli
+    leadEndpoint: "https://formsubmit.co/ajax/hicham.wsabouni@gmail.com"  // FormSubmit : transmet chaque demande de pilote par email. Passer à l'alias secret une fois activé.
   };
   if ("IntersectionObserver" in window) document.documentElement.classList.add("js");
 </script>
@@ -795,6 +795,6 @@ function up(){b.classList.toggle("show",past&&!end)}
 new IntersectionObserver(function(e){past=!e[0].isIntersecting&&e[0].boundingClientRect.top<0;up()}).observe(c);
 if(f)new IntersectionObserver(function(e){end=e[0].isIntersecting;up()}).observe(f);})();
 </script>
-<script src="pilot.js?v=4"></script>
+<script src="pilot.js?v=5"></script>
 </body>
 </html>
