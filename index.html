@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://formsubmit.co; base-uri 'self'; form-action 'self'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <script>
   /* ====== CONFIGURATION — à remplir avant la mise en ligne (voir site/README.md) ====== */
   window.VOCALQA = {
@@ -22,12 +24,10 @@
 <meta property="og:description" content="Realistic test calls on business scenarios, rule checks and an AI judge on every criterion. Start with a free pilot.">
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d1d1f'/%3E%3Crect x='10' y='7' width='3' height='19' fill='%23fff'/%3E%3Ccircle cx='17.2' cy='13.4' r='5' fill='none' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600&family=Inter:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@1,8..60,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=4">
-<script src="fx.js?v=4"></script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why not just call our agent ourselves?", "acceptedAnswer": {"@type": "Answer", "text": "You can, and you should. But a few calls by your team only cover the cases you think of, in your own voice. We run the same business scenarios every time, with different accents, speech rates and moods, and check every criterion line by line. Re-run them after each change and you see exactly what got better or worse."}}, {"@type": "Question", "name": "Does it work with our platform?", "acceptedAnswer": {"@type": "Answer", "text": "If your agent has a phone number, yes: Vapi, Retell, Bland, Synthflow, your own stack, it makes no difference to us. If it also has an HTTP API, we can run the scenarios in text mode first."}}, {"@type": "Question", "name": "Can you write scenarios for our business?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. We start from our library (insurance, banking, healthcare, automotive, bookings, e-commerce…) and adapt it to your knowledge base: your products, your rules, and above all what your agent must never say or promise."}}, {"@type": "Question", "name": "Will test calls disturb our team?", "acceptedAnswer": {"@type": "Answer", "text": "No. We call during the time slots you choose, from a number we give you, so you can tag it and leave it out of your stats."}}, {"@type": "Question", "name": "Do you fix what you find?", "acceptedAnswer": {"@type": "Answer", "text": "Every failure comes with the exact quote and a suggested fix, usually a change to your prompt or your knowledge base. We then re-run the same scenarios to check the fix actually works and broke nothing else."}}, {"@type": "Question", "name": "What happens after the free pilot?", "acceptedAnswer": {"@type": "Answer", "text": "You keep the report. If it was useful, pick a plan to test every release; if not, you owe us nothing."}}, {"@type": "Question", "name": "How do you connect to our agent?", "acceptedAnswer": {"@type": "Answer", "text": "By phone: we call the number of your agent like a real customer would, from our own line. If your agent has an HTTP API, we can also run scenarios in text mode, faster and cheaper, before the phone tests."}}, {"@type": "Question", "name": "What is in a scenario?", "acceptedAnswer": {"@type": "Answer", "text": "A caller persona (age, regional accent, speech rate, mood, background), the information they give (plate, contract number, address…), scripted behaviours (corrects a number, refuses a retention offer, mentions a burning smell) and pass/fail criteria, including critical failures."}}, {"@type": "Question", "name": "How are calls judged?", "acceptedAnswer": {"@type": "Answer", "text": "Exact data is checked by deterministic rules: was the plate or phone number read back exactly? Safety, tone, escalation and made-up facts are judged by an AI evaluator against your knowledge base. Every verdict comes with the quote that justifies it."}}, {"@type": "Question", "name": "Which languages and accents?", "acceptedAnswer": {"@type": "Answer", "text": "French first, with regional personas (South, North, Alsace, Belgium, Switzerland, Québec, West Africa). We also run calls in German, Spanish, Italian and English."}}, {"@type": "Question", "name": "What about data and compliance?", "acceptedAnswer": {"@type": "Answer", "text": "Test calls use fictional callers and fictional data only. Recordings are deleted on request. We check the AI disclosure required by the EU AI Act in every call. EU hosting and a DPA are on our roadmap for the Enterprise plan."}}]}</script>
+<link rel="stylesheet" href="fonts.css?v=6">
+<link rel="stylesheet" href="style.css?v=6">
+<script src="fx.js?v=6"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why not just call our agent ourselves?", "acceptedAnswer": {"@type": "Answer", "text": "You can, and you should. But a few calls by your team only cover the cases you think of, in your own voice. We run the same business scenarios every time, with different accents, speech rates and moods, and check every criterion line by line. Re-run them after each change and you see exactly what got better or worse."}}, {"@type": "Question", "name": "Does it work with our platform?", "acceptedAnswer": {"@type": "Answer", "text": "If your agent can be reached by phone, we can test it, whatever platform it runs on (Vapi, Retell, Bland, Synthflow or your own stack). We confirm it works with your setup during the free pilot. If it also has an HTTP API, we can run the scenarios in text mode first."}}, {"@type": "Question", "name": "Can you write scenarios for our business?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. We start from our library (insurance, banking, healthcare, automotive, bookings, e-commerce…) and adapt it to your knowledge base: your products, your rules, and above all what your agent must never say or promise."}}, {"@type": "Question", "name": "Will test calls disturb our team?", "acceptedAnswer": {"@type": "Answer", "text": "No. We call during the time slots you choose, from a number we give you, so you can tag it and leave it out of your stats."}}, {"@type": "Question", "name": "Do you fix what you find?", "acceptedAnswer": {"@type": "Answer", "text": "Every failure comes with the exact quote and a suggested fix, usually a change to your prompt or your knowledge base. We then re-run the same scenarios to check the fix actually works and broke nothing else."}}, {"@type": "Question", "name": "What happens after the free pilot?", "acceptedAnswer": {"@type": "Answer", "text": "You keep the report. If it was useful, pick a plan to test every release; if not, you owe us nothing."}}, {"@type": "Question", "name": "How do you connect to our agent?", "acceptedAnswer": {"@type": "Answer", "text": "By phone: we call the number of your agent like a real customer would, from our own line. If your agent has an HTTP API, we can also run scenarios in text mode, faster and cheaper, before the phone tests."}}, {"@type": "Question", "name": "What is in a scenario?", "acceptedAnswer": {"@type": "Answer", "text": "A caller persona (age, regional accent, speech rate, mood, background), the information they give (plate, contract number, address…), scripted behaviours (corrects a number, refuses a retention offer, mentions a burning smell) and pass/fail criteria, including critical failures."}}, {"@type": "Question", "name": "How are calls judged?", "acceptedAnswer": {"@type": "Answer", "text": "Exact data is checked by deterministic rules: was the plate or phone number read back exactly? Safety, tone, escalation and made-up facts are judged by an AI evaluator against your knowledge base. Every verdict comes with the quote that justifies it."}}, {"@type": "Question", "name": "Which languages and accents?", "acceptedAnswer": {"@type": "Answer", "text": "French first, with regional personas (South, North, Alsace, Belgium, Switzerland, Québec, West Africa). We also run calls in German, Spanish, Italian and English."}}, {"@type": "Question", "name": "What about data and compliance?", "acceptedAnswer": {"@type": "Answer", "text": "Test calls use fictional callers and fictional data only. Any recordings or transcripts are deleted on request. We check the AI disclosure required by the EU AI Act in every call. EU hosting and a DPA are on our roadmap for the Enterprise plan."}}]}</script>
 <style>
 /* =============================== HERO =============================== */
 .hero{position:relative;overflow:hidden;min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:72px 0 64px}
@@ -300,11 +300,12 @@ table.cr .res.ko{background:var(--ink);color:#fff}
   .pulse{display:none}
 }
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600&family=Figtree:wght@400;500&family=Geist+Mono:wght@500&family=Hanken+Grotesk:wght@500;600&family=Inter+Tight:wght@500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="system.css?v=4">
+<link rel="stylesheet" href="fonts.css?v=6">
+<link rel="stylesheet" href="system.css?v=6">
 </head>
 <body>
-<main>
+<a class="skip" href="#main">Skip to content</a>
+<main id="main" tabindex="-1">
 
 <!-- =============================== HERO =============================== -->
 <section class="hero">
@@ -319,7 +320,8 @@ table.cr .res.ko{background:var(--ink);color:#fff}
       </div>
     </div>
 
-    <div class="stage" aria-label="Demo: ProvaCall calls a voice agent and catches a mistake">
+    <div class="stage" role="img" aria-label="Animated demo: ProvaCall calls a voice agent and catches a mistake, such as a licence plate read back wrongly.">
+      <p class="demo-note" aria-hidden="true">Simulated demo · fictional companies and callers</p>
       <div class="rings" aria-hidden="true">
         <svg viewBox="0 0 1000 1000"><circle cx="500" cy="500" r="220"/><circle cx="500" cy="500" r="290"/><circle cx="500" cy="500" r="370"/><circle cx="500" cy="500" r="460"/></svg>
       </div>
@@ -372,8 +374,9 @@ table.cr .res.ko{background:var(--ink);color:#fff}
       <h2>Get it in <i>15 seconds</i>.</h2>
       <p class="lead">A real call, the report, the fix. Then the agent passes the test.</p>
     </div>
+    <p class="sr-only" id="demo-desc">A 15-second demo with voice-over: a simulated customer calls a voice agent, ProvaCall flags what the agent got wrong and shows the report with the exact quote, the fix is applied, and the agent then passes the test.</p>
     <div class="frame reveal" id="demo-frame">
-      <video id="demo-video" autoplay muted loop playsinline preload="metadata" aria-label="ProvaCall demo in 15 seconds">
+      <video id="demo-video" autoplay muted loop playsinline preload="metadata" aria-label="ProvaCall demo in 15 seconds" aria-describedby="demo-desc">
         <source src="demo.mp4" type="video/mp4">
       </video>
       <div class="vctl">
@@ -463,7 +466,7 @@ table.cr .res.ko{background:var(--ink);color:#fff}
         <a class="link more" href="exemple-rapport.html">See a full sample report →</a>
       </div>
       <div class="tray reveal">
-        <div class="iphone" aria-label="Preview of a ProvaCall report on a phone (fictional sample)">
+        <div class="iphone" role="img" aria-label="Preview of a ProvaCall report on a phone (fictional sample): one critical failure, five criteria with pass or fail, and a suggested fix.">
           <div class="bezel"><div class="screen app">
             <div class="island"></div>
             <div class="statusbar"><span>9:41</span>
@@ -498,7 +501,7 @@ table.cr .res.ko{background:var(--ink);color:#fff}
       <p class="lead">We run our business scenarios on your agent and walk you through the report. No commitment.</p>
     </div>
     <div class="band pilot reveal">
-      <div><b>Free pilot</b><p>10 business scenarios on your voice agent, full report with recordings, a 30-minute review call. No commitment.</p></div>
+      <div><b>Free pilot</b><p>10 business scenarios on your voice agent, full report with transcripts, a 30-minute review call. No commitment.</p></div>
       <a class="btn btn-white" data-action="pilot" href="#tarifs">Book a free pilot</a>
     </div>
     <details class="after-pilot reveal">
@@ -511,7 +514,7 @@ table.cr .res.ko{background:var(--ink);color:#fff}
         <ul class="incl">
           <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Scenario library + your own scenarios</li>
           <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Monthly call minutes included</li>
-          <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Reports with recordings</li>
+          <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Reports with transcripts</li>
         </ul>
       </div>
       <div class="price-card reveal">
@@ -530,12 +533,12 @@ table.cr .res.ko{background:var(--ink);color:#fff}
         <div class="amount"><b>€3,000+</b><span>/ month</span></div>
         <ul class="incl">
           <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom business scenarios</li>
-          <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Compliance checks (AI disclosure, GDPR)</li>
+          <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Compliance checks (AI disclosure, human handover)</li>
           <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Dedicated support, DPA (roadmap)</li>
         </ul>
       </div>
     </div>
-    <p class="note-price reveal">Indicative prices, set with each pilot client.</p>
+    <p class="note-price reveal">Indicative monthly prices. The exact price and VAT are stated in a written quote before you pay.</p>
     </details>
   </div>
 </section>
@@ -546,7 +549,7 @@ table.cr .res.ko{background:var(--ink);color:#fff}
     <div class="head reveal"><h2>Frequently asked <i>questions</i>.</h2></div>
     <div class="faq reveal">
       <details><summary>Why not just call our agent ourselves?</summary><p>You can, and you should. But a few calls by your team only cover the cases you think of, in your own voice. We run the same business scenarios every time, with different accents, speech rates and moods, and check every criterion line by line. Re-run them after each change and you see exactly what got better or worse.</p></details>
-      <details><summary>Does it work with our platform?</summary><p>If your agent has a phone number, yes: Vapi, Retell, Bland, Synthflow, your own stack, it makes no difference to us. If it also has an HTTP API, we can run the scenarios in text mode first.</p></details>
+      <details><summary>Does it work with our platform?</summary><p>If your agent can be reached by phone, we can test it, whatever platform it runs on (Vapi, Retell, Bland, Synthflow or your own stack). We confirm it works with your setup during the free pilot. If it also has an HTTP API, we can run the scenarios in text mode first.</p></details>
       <details><summary>Can you write scenarios for our business?</summary><p>Yes. We start from our library (insurance, banking, healthcare, automotive, bookings, e-commerce…) and adapt it to your knowledge base: your products, your rules, and above all what your agent must never say or promise.</p></details>
       <details><summary>Will test calls disturb our team?</summary><p>No. We call during the time slots you choose, from a number we give you, so you can tag it and leave it out of your stats.</p></details>
       <details><summary>Do you fix what you find?</summary><p>Every failure comes with the exact quote and a suggested fix, usually a change to your prompt or your knowledge base. We then re-run the same scenarios to check the fix actually works and broke nothing else.</p></details>
@@ -555,7 +558,7 @@ table.cr .res.ko{background:var(--ink);color:#fff}
       <details><summary>What is in a scenario?</summary><p>A caller persona (age, regional accent, speech rate, mood, background), the information they give (plate, contract number, address…), scripted behaviours (corrects a number, refuses a retention offer, mentions a burning smell) and pass/fail criteria, including critical failures.</p></details>
       <details><summary>How are calls judged?</summary><p>Exact data is checked by deterministic rules: was the plate or phone number read back exactly? Safety, tone, escalation and made-up facts are judged by an AI evaluator against your knowledge base. Every verdict comes with the quote that justifies it.</p></details>
       <details><summary>Which languages and accents?</summary><p>French first, with regional personas (South, North, Alsace, Belgium, Switzerland, Québec, West Africa). We also run calls in German, Spanish, Italian and English.</p></details>
-      <details><summary>What about data and compliance?</summary><p>Test calls use fictional callers and fictional data only. Recordings are deleted on request. We check the AI disclosure required by the EU AI Act in every call. EU hosting and a DPA are on our roadmap for the Enterprise plan.</p></details>
+      <details><summary>What about data and compliance?</summary><p>Test calls use fictional callers and fictional data only. Any recordings or transcripts are deleted on request. We check the AI disclosure required by the EU AI Act in every call. EU hosting and a DPA are on our roadmap for the Enterprise plan.</p></details>
     </div>
   </div>
 </section>
@@ -572,6 +575,7 @@ table.cr .res.ko{background:var(--ink);color:#fff}
       </div>
       <div><h4>Product</h4><nav><a href="#comment">How it works</a><a href="#tarifs">Pricing</a><a href="#faq">FAQ</a><a href="exemple-rapport.html">Sample report</a><a href="benchmark.html">Benchmark</a></nav></div>
       <div><h4>Contact</h4><nav><a href="#" data-action="contact" data-subject="Question about ProvaCall">Email us</a></nav></div>
+      <div><h4>Legal</h4><nav><a href="privacy.html">Privacy policy</a><a href="terms.html">Terms of service</a><a href="refunds.html">Refund policy</a><a href="legal.html">Legal notice</a><a href="mailto:hicham.wsabouni@gmail.com?subject=Data%20deletion%20request%20-%20ProvaCall&amp;body=Hello%2C%0A%0APlease%20delete%20all%20personal%20data%20you%20hold%20about%20me.%0A%0AThe%20email%20address%20I%20used%3A%20%0ACompany%3A%20%0A%0AThank%20you.">Delete my data</a></nav></div>
     </div>
   </div>
 </footer>
@@ -798,6 +802,6 @@ function up(){b.classList.toggle("show",past&&!end)}
 new IntersectionObserver(function(e){past=!e[0].isIntersecting&&e[0].boundingClientRect.top<0;up()}).observe(c);
 if(f)new IntersectionObserver(function(e){end=e[0].isIntersecting;up()}).observe(f);})();
 </script>
-<script src="pilot.js?v=5"></script>
+<script src="pilot.js?v=6"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 /* ProvaCall · design system
  * Une seule page, des jetons (tokens) : couleur, typographie, forme. Chaque thème ne change QUE des jetons.
- * Thème actif : <html data-theme="1..5"> (posé par fx.js ; ?theme=3 dans l'URL pour en essayer un).
+ * Un seul thème (Mono). Pour changer de look : modifier les jetons du bloc :root ci-dessous.
  *
  * COULEUR   --paper fond · --soft fond secondaire · --surface cartes claires · --ink texte · --ink-2 · --muted · --faint · --line
  *           --accent · --accent-text · --on-accent · --btn / --on-btn (bouton principal)
@@ -17,46 +17,11 @@
 }
 
 /* ───────────── thèmes : uniquement des jetons ───────────── */
-/* 1 · Ivory — papier chaud, encre, titres en serif. Noir et blanc, sans couleur. */
-[data-theme="1"]{
-  --paper:#faf8f3;--soft:#f0ede4;--surface:#fffdf9;--ink:#161512;--ink-2:#3b3933;--muted:#716d63;--faint:#a39f93;--line:#e2ded2;
-  --accent:#161512;--accent-text:#161512;--on-accent:#faf8f3;
-  --display:"Newsreader",Georgia,serif;--h-weight:300;--h-track:-.028em;--h1:clamp(48px,6vw,84px);--h2:clamp(38px,4.8vw,64px);
-  --card-radius:0px;--big-radius:6px;--card-bg:transparent;
-}
-/* 2 · Cobalt — blanc froid, bleu franc, titres fins. */
-[data-theme="2"]{
-  --paper:#fff;--soft:#f3f5fb;--surface:#fff;--ink:#0a1024;--ink-2:#2b3350;--muted:#5d6685;--faint:#9aa2bd;--line:#e3e7f2;
-  --accent:#2447f9;--accent-text:#2447f9;--on-accent:#fff;--btn:#2447f9;--on-btn:#fff;
-  --display:"Figtree",system-ui,sans-serif;--h-weight:400;--h-track:-.038em;--h1:clamp(44px,5.4vw,72px);--h2:clamp(34px,4.4vw,54px);
-  --btn-radius:12px;--card-radius:16px;--big-radius:20px;--card-bg:#fff;--card-line:var(--line);
-}
-/* 3 · Oxblood — crème, bordeaux profond, grotesque de caractère, angles nets. */
-[data-theme="3"]{
-  --paper:#f6f0e6;--soft:#ece4d6;--surface:#fbf7f0;--ink:#1d1310;--ink-2:#46352f;--muted:#7b6a62;--faint:#ad9d93;--line:#dfd4c3;
-  --accent:#7a1f2b;--accent-text:#7a1f2b;--on-accent:#f6f0e6;--btn:#7a1f2b;--on-btn:#f6f0e6;
-  --display:"Bricolage Grotesque",system-ui,sans-serif;--h-weight:500;--h-track:-.045em;--h1:clamp(44px,5.6vw,76px);--h2:clamp(34px,4.4vw,56px);
-  --btn-radius:6px;--card-radius:6px;--big-radius:10px;
-}
-/* 4 · Night — noir, un seul vert acide pour ce qui compte. */
-[data-theme="4"]{
-  color-scheme:dark;
-  --paper:#0b0c0e;--soft:#15171a;--surface:#1a1d21;--ink:#f3f3ef;--ink-2:#c9cac4;--muted:#8e9096;--faint:#5c5f66;--line:#24272c;
-  --accent:#c9f24d;--accent-text:#c9f24d;--on-accent:#0b0c0e;--btn:#c9f24d;--on-btn:#0b0c0e;
-  --display:"Inter Tight",system-ui,sans-serif;--h-weight:500;--h-track:-.04em;--h1:clamp(44px,5.6vw,74px);--h2:clamp(34px,4.4vw,56px);
-  --btn-radius:10px;--card-radius:18px;--big-radius:22px;--card-line:var(--line);
-}
-/* 5 · Sage — vert-gris calme, émeraude, cartes blanches. */
-[data-theme="5"]{
-  --paper:#f2f4ef;--soft:#e6eae1;--surface:#fbfcf9;--ink:#12211a;--ink-2:#33443b;--muted:#64746a;--faint:#9aa79e;--line:#d6dcd0;
-  --accent:#0e7a53;--accent-text:#0e7a53;--on-accent:#fff;--btn:#12211a;--on-btn:#f2f4ef;
-  --display:"Hanken Grotesk",system-ui,sans-serif;--h-weight:500;--h-track:-.042em;--h1:clamp(42px,5.2vw,68px);--h2:clamp(34px,4.2vw,52px);
-  --card-bg:var(--surface);
-}
 
 /* 6 · Mono — les couleurs d'Ivory (papier, encre, aucune couleur) avec la typographie et les formes d'Oxblood. Thème par défaut. */
-[data-theme="6"]{
-  --paper:#faf8f3;--soft:#f0ede4;--surface:#fffdf9;--ink:#161512;--ink-2:#3b3933;--muted:#716d63;--faint:#a39f93;--line:#e2ded2;
+/* Jetons : papier chaud et encre (aucune couleur d'accent), titres Bricolage, angles nets. */
+:root{
+  --paper:#faf8f3;--soft:#f0ede4;--surface:#fffdf9;--ink:#161512;--ink-2:#3b3933;--muted:#5f5b52;--faint:#6b675d;--line:#e2ded2;
   --accent:#161512;--accent-text:#161512;--on-accent:#faf8f3;
   --display:"Bricolage Grotesque",system-ui,sans-serif;--h-weight:500;--h-track:-.045em;--h1:clamp(44px,5.6vw,76px);--h2:clamp(34px,4.4vw,56px);
   --btn-radius:6px;--card-radius:6px;--big-radius:10px;
@@ -92,7 +57,7 @@ main{counter-reset:sec}
 .card .n{border-color:var(--accent);color:var(--accent-text)}
 .price-card,.band,.tray{border-radius:var(--big-radius)}
 .band.pilot{background:var(--ink);color:var(--paper)}
-.band.pilot p{color:var(--faint)}
+.band.pilot p{color:#c9c5b8}
 .frame{border-radius:var(--big-radius)}
 .foot-card{background:var(--surface);border-radius:var(--big-radius)}
 .sheet,.guar{background:var(--surface)}
@@ -102,55 +67,19 @@ main{counter-reset:sec}
 .pf-opt.on .pf-tick{background:var(--paper);border-color:var(--paper)}
 
 /* ───────────── variantes de forme propres à un thème ───────────── */
-/* 1 · cartes « réglées » : un filet d'encre au-dessus, pas de fond */
-[data-theme="1"] .card{border-top:1px solid var(--ink);padding:22px 20px 26px 0;min-height:210px}
-[data-theme="1"] .card:hover{transform:none}
-[data-theme="1"] .card h3{font:400 24px/1.15 var(--display);letter-spacing:-.02em}
-[data-theme="1"] .faq summary{font:400 22px/1.3 var(--display);letter-spacing:-.015em}
-[data-theme="1"] .price-card{background:var(--soft)}
-[data-theme="1"] .pitch h1 em{display:inline}
 
-/* 2 · cartes blanches bordées, ombre très légère */
-[data-theme="2"] .card{box-shadow:inset 0 0 0 1px var(--card-line),0 1px 2px rgba(10,16,36,.04)}
-[data-theme="2"] .card:hover{box-shadow:inset 0 0 0 1px var(--accent),0 12px 28px -18px rgba(36,71,249,.45)}
-[data-theme="2"] .section h2::before,[data-theme="2"] .demo h2::before{color:var(--accent)}
 
-/* 3 · titres compacts, numéros pleins */
-[data-theme="3"] .card .n,[data-theme="6"] .card .n{background:var(--accent);color:var(--on-accent);border-radius:4px}
-[data-theme="3"] .faq summary,[data-theme="6"] .faq summary{font-family:var(--display);letter-spacing:-.03em}
+.card .n{background:var(--accent);color:var(--on-accent);border-radius:4px}
+.faq summary{font-family:var(--display);letter-spacing:-.03em}
 
-/* 4 · sombre : l'iPhone garde ses propres couleurs claires, les formes de fond s'effacent */
-[data-theme="4"] .iphone{--ink:#1d1d1f;--ink-2:#424245;--muted:#6e6e73;--faint:#a1a1a6;--line:#e5e5ea;--paper:#fff;--soft:#f5f5f7;--accent:#1d1d1f}
-[data-theme="4"] .deco::before{opacity:.1}
-[data-theme="4"] .btn-light{box-shadow:0 0 0 1px var(--line)}
-[data-theme="4"] .foot-card{box-shadow:0 0 0 1px var(--line)}
-[data-theme="4"] .frame{box-shadow:0 0 0 1px var(--line),0 40px 90px -40px rgba(201,242,77,.18)}
-[data-theme="4"] .band.pilot{background:var(--soft);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
-[data-theme="4"] .band.pilot p{color:var(--muted)}
-[data-theme="4"] .band.pilot .btn-white{background:var(--btn);color:var(--on-btn)}
-[data-theme="4"] .pill.solid,[data-theme="4"] .crit-line,[data-theme="4"] table.cr .res.ko{color:var(--paper)}
-[data-theme="4"] .pf{background:var(--paper);color:var(--ink)}
 
-/* 5 · italique d'emphase en émeraude, cartes blanches douces */
-[data-theme="5"] .card{box-shadow:0 1px 2px rgba(18,33,26,.05)}
-[data-theme="5"] .section h2::before,[data-theme="5"] .demo h2::before{color:var(--accent)}
 
 /* sélecteur de thème (aperçu local uniquement, ajouté par fx.js) */
-.pc-themes{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:50;display:flex;gap:4px;padding:5px;border-radius:999px;
-  background:rgba(20,20,20,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 12px 30px -10px rgba(0,0,0,.5);font:500 12.5px/1 var(--font)}
-.pc-themes button{all:unset;cursor:pointer;display:flex;align-items:center;gap:7px;padding:8px 12px;border-radius:999px;color:#b9b9bd;white-space:nowrap}
-.pc-themes button i{width:11px;height:11px;border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.35)}
-.pc-themes button.on{background:#fff;color:#111}
-@media (max-width:640px){.pc-themes button span{display:none}}
 
 /* formulaire de pilote : mêmes jetons que le reste */
 .pf-opt{background:var(--surface);color:var(--ink)}
 .pf-opt.on{background:var(--btn);border-color:var(--btn);color:var(--on-btn)}
 .pf-input::placeholder{color:var(--faint)}
-[data-theme="4"] .pf-opt.on .pf-key{border-color:rgba(0,0,0,.3);color:rgba(0,0,0,.7)}
-[data-theme="4"] .pf-opt.on .pf-ic{background:rgba(0,0,0,.1)}
-[data-theme="4"] .pf-opt.on .pf-txt small{color:rgba(0,0,0,.65)}
-[data-theme="4"] .pf-opt.on .pf-tick{background:var(--paper);border-color:var(--paper);color:var(--accent)}
 
 /* bas du hero : la preuve sociale en légende, sur un filet, plutôt qu'en pastille sous les boutons */
 .hero-foot{position:absolute;left:0;right:0;bottom:24px;z-index:4;animation:rise .9s .6s both}
@@ -166,7 +95,7 @@ main{counter-reset:sec}
 .header{background:color-mix(in srgb,var(--paper) 86%,transparent)}
 
 /* champs de points gris : teinte du thème, et deux positions de plus (bas droite, bas gauche) */
-.deco-dots::before{background-image:radial-gradient(circle,var(--faint) 1.25px,transparent 1.6px);opacity:.5}
+.deco-dots::before{background-image:radial-gradient(circle,var(--faint) 1.25px,transparent 1.6px);opacity:.28}
 .deco-dots.b::before{-webkit-mask-image:radial-gradient(55% 70% at 90% 85%,#000,transparent);mask-image:radial-gradient(55% 70% at 90% 85%,#000,transparent)}
 .deco-dots.bl::before{-webkit-mask-image:radial-gradient(50% 70% at 8% 82%,#000,transparent);mask-image:radial-gradient(50% 70% at 8% 82%,#000,transparent)}
 
@@ -223,5 +152,40 @@ main{counter-reset:sec}
     box-shadow:0 14px 34px -12px rgba(0,0,0,.5);transform:translateY(90px);opacity:0;pointer-events:none;transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .25s}
   .mcta.show{transform:none;opacity:1;pointer-events:auto}
   .pf-lock .mcta{display:none}
-  .pc-themes{bottom:auto;top:8px}
 }
+
+/* ───────────── accessibilité ───────────── */
+.skip{position:absolute;left:12px;top:-60px;z-index:200;background:var(--ink);color:var(--paper);padding:12px 18px;border-radius:var(--btn-radius);font-weight:500;text-decoration:none;transition:top .15s}
+.skip:focus{top:12px}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+main:focus{outline:none}
+a,button,summary,input{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.btn-dark:focus-visible,.mcta:focus-visible{outline-color:var(--ink);box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--ink)}
+.demo-note{position:absolute;left:0;right:0;bottom:4px;margin:0;text-align:center;font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:900px){.demo-note{bottom:6px}}
+
+/* ───────────── pages légales ───────────── */
+.legal{padding:72px 0 96px}
+.legal .wrap{max-width:780px}
+.legal-meta{margin:0 0 14px;font:500 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.legal h1{font-size:clamp(36px,5vw,52px);line-height:1.05;margin:0 0 20px}
+.legal .lead{margin-bottom:36px;max-width:62ch}
+.legal h2{font-size:clamp(21px,2.4vw,26px);letter-spacing:-.02em;margin:40px 0 10px}
+.legal h2::before{content:none}
+.legal p,.legal li{font-size:17px;line-height:1.6;color:var(--ink-2);max-width:68ch}
+.legal ul{padding-left:22px;margin:10px 0}
+.legal li{margin:6px 0}
+.legal a:not(.btn){color:var(--ink);text-underline-offset:3px}
+.legal .btn{margin-top:6px}
+.ltable{width:100%;border-collapse:collapse;margin:14px 0 6px;font-size:15px}
+.ltable th,.ltable td{text-align:left;vertical-align:top;padding:12px 14px 12px 0;border-bottom:1px solid var(--line);color:var(--ink-2)}
+.ltable th{font:500 12px/1.3 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:700px){.ltable thead{display:none}.ltable tr{display:block;padding:12px 0;border-bottom:1px solid var(--line)}.ltable td{display:block;border:0;padding:3px 0}.legal{padding:48px 0 72px}}
+.legal-links{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px}
+.legal-links a{color:var(--muted);text-decoration:none}
+.legal-links a:hover{color:var(--ink);text-decoration:underline}
+.footer>.wrap{flex-wrap:wrap;gap:12px 24px}
+.footer>.wrap:has(>.legal-links){display:flex;align-items:center;justify-content:space-between;padding-top:28px;padding-bottom:28px;border-top:1px solid var(--line)}
+.pf-legal a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:700px){.ltable td[data-label]::before{content:attr(data-label) ": ";font:500 11px/1.4 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}}

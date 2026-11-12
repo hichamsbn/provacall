@@ -90,6 +90,8 @@
       inp.type = s.type === "email" ? "email" : "text";
       inp.placeholder = s.ph || "";
       inp.autocomplete = s.ac || "on";
+      inp.setAttribute("aria-label", s.q);
+      inp.required = true;
       inp.value = answers[s.id] || "";
       inp.oninput = function () { answers[s.id] = inp.value; refresh(); }; // refresh() efface l'erreur dès que c'est valide
       inp.onblur = function () { // l'erreur n'apparaît qu'en quittant le champ, jamais pendant la frappe
@@ -106,8 +108,10 @@
     foot.appendChild(nx);
     if (s.type !== "choice") foot.appendChild(el("span", "pf-enter", "or press <b>Enter ↵</b>"));
     card.appendChild(foot);
-    if (last) card.appendChild(el("p", "pf-legal", "We only use this to set up your pilot. No newsletter."));
-    card.appendChild(el("p", "pf-err", ""));
+    if (last) card.appendChild(el("p", "pf-legal", "We use your answers only to reply and set up your pilot: no newsletter, no sharing. For business use. " +
+      '<a href="privacy.html" target="_blank" rel="noopener">Privacy policy</a> · <a href="terms.html" target="_blank" rel="noopener">Terms</a>. ' +
+      "You can ask us to delete your data at any time."));
+    var errEl = el("p", "pf-err", ""); errEl.setAttribute("role", "alert"); card.appendChild(errEl);
 
     stage.innerHTML = "";
     stage.appendChild(card);
@@ -185,7 +189,6 @@
       company: answers.company, email: answers.email,
       testing: answers.who, use_cases: (answers.use || []).join(", "),
       languages: (answers.lang || []).join(", "),
-      page: location.href,
       _template: "table", _captcha: "false", _honey: (document.getElementById("pf-honey") || {}).value || ""   // options FormSubmit ; _honey = piège à robots (doit rester vide)
     };
     if (!C.leadEndpoint) { // pas encore d'outil de réception : email pré-rempli

@@ -1,0 +1,16 @@
+Fonts hosted on provacall.com (self-hosted, no request to Google or any third party)
+
+All four families are licensed under the SIL Open Font License, Version 1.1
+(https://openfontlicense.org). They may be used commercially and redistributed, including embedded in a
+website, provided this notice stays with them. The fonts are not sold by themselves.
+
+- Bricolage Grotesque — Copyright 2022 The Bricolage Grotesque Project Authors (https://github.com/ateliertriay/bricolage)
+- Inter — Copyright 2020 The Inter Project Authors (https://github.com/rsms/inter)
+- Newsreader — Copyright 2020 The Newsreader Project Authors (https://github.com/productiontype/Newsreader)
+- Geist Mono — Copyright 2023 The Geist Project Authors (https://github.com/vercel/geist-font)
+
+Files were obtained through Google Fonts (fonts.google.com), which distributes them under the same licenses.
+"Reserved Font Name" clauses, where present, are respected: the files are unmodified.
+
+Other materials: the logo, icons, illustrations and the demo video were created for ProvaCall.
+No stock photos, no third-party icon sets.
