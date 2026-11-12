@@ -1,0 +1,172 @@
+:root{
+  --ink:#1d1d1f;--ink-2:#424245;--muted:#6e6e73;--faint:#a1a1a6;--line:#e5e5ea;--soft:#f5f5f7;--paper:#fff;
+  --radius:22px;--pill:999px;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter","Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.5 var(--font);letter-spacing:-.011em;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+
+/* ---------- boutons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:46px;padding:0 22px;
+  border-radius:var(--pill);font:500 16px/1 var(--font);letter-spacing:-.01em;text-decoration:none;border:0;
+  cursor:pointer;transition:background .2s ease,transform .15s ease,box-shadow .2s ease;white-space:nowrap}
+.btn:active{transform:scale(.98)}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:#000}
+.btn-light{background:#fff;color:var(--ink);box-shadow:0 0 0 1px var(--line),0 1px 2px rgba(0,0,0,.06)}
+.btn-light:hover{box-shadow:0 0 0 1px #d2d2d7,0 2px 8px rgba(0,0,0,.08)}
+.btn-white{background:#fff;color:var(--ink)}
+.btn-sm{height:36px;padding:0 16px;font-size:14px}
+.btn-block{width:100%}
+.link{color:var(--muted);font-size:15px;text-decoration:none}
+.link:hover{color:var(--ink)}
+
+/* ---------- marque ---------- */
+.logo{display:inline-flex;align-items:center;gap:7px;font-weight:600;font-size:18px;letter-spacing:-.02em;text-decoration:none;color:var(--ink)}
+.logo i{width:10px;height:10px;border-radius:50%;background:var(--ink);display:inline-block}
+
+/* ---------- typo ---------- */
+h1,h2,h3{margin:0;font-weight:500;letter-spacing:-.022em;line-height:1.05;color:var(--ink)}
+h1{font-size:clamp(40px,5.2vw,58px)}
+h2{font-size:clamp(32px,4.2vw,48px);line-height:1.08}
+h2 b{font-weight:600}
+h3{font-size:19px;font-weight:600;letter-spacing:-.015em;line-height:1.25}
+.lead{font-size:clamp(17px,1.5vw,19px);color:var(--muted);line-height:1.45;margin:0}
+.section{padding:120px 0}
+@media (max-width:700px){.section{padding:80px 0}}
+
+/* ---------- en-tête simple (pages secondaires) ---------- */
+.header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(16px);
+  -webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--line)}
+.header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+
+/* ---------- pied de page ---------- */
+.footer{padding:40px 0 0;overflow:hidden}
+.foot-card{border-radius:28px;background:#fff;box-shadow:0 0 0 1px var(--line),0 20px 50px -30px rgba(0,0,0,.18);
+  padding:40px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
+.foot-card h4{margin:0 0 14px;font-size:14px;font-weight:600}
+.foot-card p{margin:8px 0 18px;color:var(--muted);font-size:14.5px;max-width:280px}
+.foot-card nav{display:grid;gap:10px;font-size:14.5px}
+.foot-card nav a{text-decoration:none;color:var(--muted)}
+.foot-card nav a:hover{color:var(--ink)}
+.foot-legal{margin-top:22px;font-size:12.5px;color:var(--faint)}
+.wordmark{font-weight:600;letter-spacing:-.05em;line-height:.8;font-size:clamp(90px,19vw,260px);color:#f2f2f4;
+  text-align:center;margin:40px 0 -0.12em;user-select:none;white-space:nowrap}
+@media (max-width:760px){.foot-card{grid-template-columns:1fr 1fr;padding:28px 22px}.foot-card>div:first-child{grid-column:1/-1}}
+
+/* compatibilité pages secondaires */
+.gray{color:var(--muted)}
+
+/* ---------- demande de pilote : une question à la fois ---------- */
+.pf-lock,.pf-lock body{overflow:hidden}
+.pf{position:fixed;inset:0;z-index:100;background:var(--paper);display:flex;flex-direction:column;
+  opacity:0;visibility:hidden;transition:opacity .25s ease,visibility 0s .25s}
+.pf.open{opacity:1;visibility:visible;transition:opacity .25s ease}
+.pf-top{display:flex;align-items:center;gap:14px;padding:18px 24px;max-width:760px;width:100%;margin:0 auto}
+.pf-top button{width:40px;height:40px;flex:none;border:0;border-radius:50%;background:var(--soft);color:var(--ink);cursor:pointer;display:grid;place-items:center}
+.pf-top button:hover{background:var(--line)}
+.pf-top svg{width:18px;height:18px}
+.pf-bar{flex:1;height:4px;border-radius:4px;background:var(--line);overflow:hidden}
+.pf-bar i{display:block;height:100%;background:var(--ink);border-radius:4px;transition:width .45s cubic-bezier(.2,.8,.2,1)}
+.pf-count{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:38px;text-align:right}
+.pf-stage{flex:1;overflow-y:auto;display:flex;align-items:center;justify-content:center;padding:12px 24px 48px}
+.pf-card{width:100%;max-width:640px;opacity:0;transition:opacity .35s ease,transform .45s cubic-bezier(.2,.8,.2,1)}
+.pf-card.from-right{transform:translateX(28px)}
+.pf-card.from-left{transform:translateX(-28px)}
+.pf-card.in{opacity:1;transform:none}
+.pf-step{font-size:13px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:0 0 12px}
+.pf-q{font-size:clamp(30px,4.6vw,44px);line-height:1.08;margin:0 0 10px}
+.pf-hint{color:var(--muted);margin:0 0 28px}
+.pf-q+.pf-input,.pf-q+.pf-opts{margin-top:26px}
+.pf-opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.pf-opts.big{grid-template-columns:1fr}
+.pf-opt{position:relative;display:flex;align-items:center;gap:14px;text-align:left;padding:16px 18px;border-radius:16px;
+  background:#fff;border:1px solid var(--line);color:var(--ink);font:inherit;cursor:pointer;
+  transition:border-color .15s,background .15s,transform .12s}
+.pf-opt:hover{border-color:var(--ink)}
+.pf-opt:active{transform:scale(.99)}
+.pf-opt:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.pf-opt.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.pf-key{width:24px;height:24px;flex:none;border-radius:7px;border:1px solid var(--line);font-size:12px;font-weight:600;
+  display:grid;place-items:center;color:var(--muted)}
+.pf-opt.on .pf-key{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.75)}
+.pf-ic{width:44px;height:44px;flex:none;border-radius:12px;background:var(--soft);display:grid;place-items:center}
+.pf-ic svg{width:22px;height:22px}
+.pf-opt.on .pf-ic{background:rgba(255,255,255,.12)}
+.pf-txt{flex:1;min-width:0}
+.pf-txt b{display:block;font-weight:500;font-size:16px;letter-spacing:-.01em}
+.pf-opts.big .pf-txt b{font-size:18px}
+.pf-txt small{display:block;color:var(--muted);font-size:14px;margin-top:2px}
+.pf-opt.on .pf-txt small{color:rgba(255,255,255,.65)}
+.pf-code{font-style:normal;font-size:11px;font-weight:600;letter-spacing:.04em;margin-right:8px;opacity:.55}
+.pf-tick{width:22px;height:22px;flex:none;border-radius:50%;display:grid;place-items:center;opacity:0;transform:scale(.6);transition:.18s}
+.pf-tick svg{width:16px;height:16px}
+.pf-opts.multi .pf-tick{opacity:1;transform:none;border:1px solid var(--line)}
+.pf-opts.multi .pf-tick svg{opacity:0}
+.pf-opt.on .pf-tick{opacity:1;transform:none;background:#fff;color:var(--ink);border-color:#fff}
+.pf-opt.on .pf-tick svg{opacity:1}
+.pf-input{width:100%;border:0;border-bottom:2px solid var(--line);background:transparent;color:var(--ink);
+  font:500 clamp(24px,3.4vw,32px)/1.3 var(--font);letter-spacing:-.02em;padding:10px 0;outline:none;border-radius:0;transition:border-color .2s}
+.pf-input:focus{border-color:var(--ink)}
+.pf-input::placeholder{color:#c7c7cc}
+.pf-foot{display:flex;align-items:center;gap:16px;margin-top:30px;flex-wrap:wrap}
+.pf-next{height:50px;padding:0 28px}
+.pf-next:disabled{background:var(--line);color:var(--faint);cursor:default}
+.pf-enter{font-size:14px;color:var(--muted)}
+.pf-enter b{font-weight:500;color:var(--ink-2)}
+.pf-legal{font-size:13px;color:var(--muted);margin:16px 0 0}
+.pf-err{min-height:20px;font-size:14px;color:var(--ink);font-weight:500;margin:12px 0 0}
+@media (max-width:600px){
+  .pf-top{padding:14px 16px}
+  .pf-stage{align-items:flex-start;padding:24px 16px 40px}
+  .pf-opts{grid-template-columns:1fr}
+  .pf-key,.pf-enter{display:none}
+  .pf-next{width:100%}
+}
+@media (hover:none){.pf-key,.pf-enter{display:none}}
+@media (prefers-reduced-motion:reduce){.pf-card,.pf-bar i,.pf{transition:none}}
+
+/* =============================== couleur, logo, décor, animations (partagé) =============================== */
+:root{--accent:#1d1d1f;--accent-text:#424245;--on-accent:#fff;--display:"Geist","Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
+::selection{background:var(--accent);color:var(--on-accent)}
+h1,h2{font-family:var(--display);letter-spacing:-.04em}
+h1 em,h2 i,h2 em{color:var(--accent-text)}
+
+/* logo : un P géométrique (une hampe et un anneau d'appel), en noir et blanc, suivi du nom en capitales */
+.logo{gap:10px;text-transform:uppercase;letter-spacing:.17em;font-size:14px;font-weight:500}
+.logo i{width:20px;height:20px;flex:none;display:inline-block;border-radius:0;background:currentColor;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='5' y='2' width='3.4' height='21'/%3E%3Ccircle cx='13.6' cy='9.2' r='5.4' fill='none' stroke='black' stroke-width='3.4'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='5' y='2' width='3.4' height='21'/%3E%3Ccircle cx='13.6' cy='9.2' r='5.4' fill='none' stroke='black' stroke-width='3.4'/%3E%3C/svg%3E") center/contain no-repeat;
+  transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.logo:hover i{transform:translateX(2px)}
+
+/* apparition au défilement (toutes les pages) */
+.js .reveal{opacity:0;transform:translateY(16px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.js .reveal.in{opacity:1;transform:none}
+.card,.price-card,.foot-card{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease}
+.card:hover,.price-card:hover{transform:translateY(-4px)}
+.btn-dark{box-shadow:0 0 0 0 transparent}
+.btn-dark:hover{box-shadow:0 8px 24px -10px rgba(0,0,0,.45);transform:translateY(-1px)}
+.pf-bar i{background:var(--accent)}
+
+/* formes grises en fond des sections */
+.deco{position:relative;overflow:hidden;isolation:isolate}
+.deco::before{content:"";position:absolute;z-index:-1;pointer-events:none}
+.deco-rings::before{width:min(980px,110vw);aspect-ratio:1;right:-24%;top:-14%;background:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1000 1000%22 fill=%22none%22 stroke=%22%23d9d9de%22 stroke-width=%221.6%22%3E%3Ccircle cx=%22500%22 cy=%22500%22 r=%22120%22/%3E%3Ccircle cx=%22500%22 cy=%22500%22 r=%22190%22/%3E%3Ccircle cx=%22500%22 cy=%22500%22 r=%22270%22/%3E%3Ccircle cx=%22500%22 cy=%22500%22 r=%22360%22/%3E%3Ccircle cx=%22500%22 cy=%22500%22 r=%22460%22/%3E%3C/svg%3E") center/contain no-repeat;animation:breathe 16s ease-in-out infinite alternate}
+.deco-rings.l::before{right:auto;left:-28%}
+.deco-dots::before{inset:0;background-image:radial-gradient(circle,#d6d6db 1.3px,transparent 1.6px);background-size:28px 28px;
+  -webkit-mask-image:radial-gradient(55% 75% at 88% 18%,#000,transparent);mask-image:radial-gradient(55% 75% at 88% 18%,#000,transparent);animation:dots 40s linear infinite}
+.deco-dots.l::before{-webkit-mask-image:radial-gradient(55% 75% at 10% 20%,#000,transparent);mask-image:radial-gradient(55% 75% at 10% 20%,#000,transparent)}
+.deco-wave::before{left:0;right:0;bottom:-10px;height:200px;background:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 200%22 fill=%22none%22 stroke=%22%23dcdce1%22 stroke-width=%224%22 stroke-linecap=%22round%22%3E%3Cline x1=%228%22 x2=%228%22 y1=%2290%22 y2=%22110%22/%3E%3Cline x1=%2224%22 x2=%2224%22 y1=%2271%22 y2=%22129%22/%3E%3Cline x1=%2240%22 x2=%2240%22 y1=%2274%22 y2=%22126%22/%3E%3Cline x1=%2256%22 x2=%2256%22 y1=%2273%22 y2=%22127%22/%3E%3Cline x1=%2272%22 x2=%2272%22 y1=%2273%22 y2=%22127%22/%3E%3Cline x1=%2288%22 x2=%2288%22 y1=%2287%22 y2=%22113%22/%3E%3Cline x1=%22104%22 x2=%22104%22 y1=%2274%22 y2=%22126%22/%3E%3Cline x1=%22120%22 x2=%22120%22 y1=%2282%22 y2=%22118%22/%3E%3Cline x1=%22136%22 x2=%22136%22 y1=%2277%22 y2=%22123%22/%3E%3Cline x1=%22152%22 x2=%22152%22 y1=%2277%22 y2=%22123%22/%3E%3Cline x1=%22168%22 x2=%22168%22 y1=%2274%22 y2=%22126%22/%3E%3Cline x1=%22184%22 x2=%22184%22 y1=%2259%22 y2=%22141%22/%3E%3Cline x1=%22200%22 x2=%22200%22 y1=%2264%22 y2=%22136%22/%3E%3Cline x1=%22216%22 x2=%22216%22 y1=%2249%22 y2=%22151%22/%3E%3Cline x1=%22232%22 x2=%22232%22 y1=%2254%22 y2=%22146%22/%3E%3Cline x1=%22248%22 x2=%22248%22 y1=%2260%22 y2=%22140%22/%3E%3Cline x1=%22264%22 x2=%22264%22 y1=%2265%22 y2=%22135%22/%3E%3Cline x1=%22280%22 x2=%22280%22 y1=%2289%22 y2=%22111%22/%3E%3Cline x1=%22296%22 x2=%22296%22 y1=%2263%22 y2=%22137%22/%3E%3Cline x1=%22312%22 x2=%22312%22 y1=%2259%22 y2=%22141%22/%3E%3Cline x1=%22328%22 x2=%22328%22 y1=%2246%22 y2=%22154%22/%3E%3Cline x1=%22344%22 x2=%22344%22 y1=%2242%22 y2=%22158%22/%3E%3Cline x1=%22360%22 x2=%22360%22 y1=%2251%22 y2=%22149%22/%3E%3Cline x1=%22376%22 x2=%22376%22 y1=%2249%22 y2=%22151%22/%3E%3Cline x1=%22392%22 x2=%22392%22 y1=%2270%22 y2=%22130%22/%3E%3Cline x1=%22408%22 x2=%22408%22 y1=%2273%22 y2=%22127%22/%3E%3Cline x1=%22424%22 x2=%22424%22 y1=%2275%22 y2=%22125%22/%3E%3Cline x1=%22440%22 x2=%22440%22 y1=%2270%22 y2=%22130%22/%3E%3Cline x1=%22456%22 x2=%22456%22 y1=%2259%22 y2=%22141%22/%3E%3Cline x1=%22472%22 x2=%22472%22 y1=%2272%22 y2=%22128%22/%3E%3Cline x1=%22488%22 x2=%22488%22 y1=%2262%22 y2=%22138%22/%3E%3Cline x1=%22504%22 x2=%22504%22 y1=%2273%22 y2=%22127%22/%3E%3Cline x1=%22520%22 x2=%22520%22 y1=%2276%22 y2=%22124%22/%3E%3Cline x1=%22536%22 x2=%22536%22 y1=%2277%22 y2=%22123%22/%3E%3Cline x1=%22552%22 x2=%22552%22 y1=%2287%22 y2=%22113%22/%3E%3Cline x1=%22568%22 x2=%22568%22 y1=%2275%22 y2=%22125%22/%3E%3Cline x1=%22584%22 x2=%22584%22 y1=%2280%22 y2=%22120%22/%3E%3Cline x1=%22600%22 x2=%22600%22 y1=%2267%22 y2=%22133%22/%3E%3Cline x1=%22616%22 x2=%22616%22 y1=%2263%22 y2=%22137%22/%3E%3Cline x1=%22632%22 x2=%22632%22 y1=%2265%22 y2=%22135%22/%3E%3Cline x1=%22648%22 x2=%22648%22 y1=%2258%22 y2=%22142%22/%3E%3Cline x1=%22664%22 x2=%22664%22 y1=%2275%22 y2=%22125%22/%3E%3Cline x1=%22680%22 x2=%22680%22 y1=%2272%22 y2=%22128%22/%3E%3Cline x1=%22696%22 x2=%22696%22 y1=%2276%22 y2=%22124%22/%3E%3Cline x1=%22712%22 x2=%22712%22 y1=%2263%22 y2=%22137%22/%3E%3Cline x1=%22728%22 x2=%22728%22 y1=%2248%22 y2=%22152%22/%3E%3Cline x1=%22744%22 x2=%22744%22 y1=%2253%22 y2=%22147%22/%3E%3Cline x1=%22760%22 x2=%22760%22 y1=%2239%22 y2=%22161%22/%3E%3Cline x1=%22776%22 x2=%22776%22 y1=%2251%22 y2=%22149%22/%3E%3Cline x1=%22792%22 x2=%22792%22 y1=%2255%22 y2=%22145%22/%3E%3Cline x1=%22808%22 x2=%22808%22 y1=%2266%22 y2=%22134%22/%3E%3Cline x1=%22824%22 x2=%22824%22 y1=%2285%22 y2=%22115%22/%3E%3Cline x1=%22840%22 x2=%22840%22 y1=%2263%22 y2=%22137%22/%3E%3Cline x1=%22856%22 x2=%22856%22 y1=%2265%22 y2=%22135%22/%3E%3Cline x1=%22872%22 x2=%22872%22 y1=%2251%22 y2=%22149%22/%3E%3Cline x1=%22888%22 x2=%22888%22 y1=%2254%22 y2=%22146%22/%3E%3Cline x1=%22904%22 x2=%22904%22 y1=%2260%22 y2=%22140%22/%3E%3Cline x1=%22920%22 x2=%22920%22 y1=%2261%22 y2=%22139%22/%3E%3Cline x1=%22936%22 x2=%22936%22 y1=%2282%22 y2=%22118%22/%3E%3Cline x1=%22952%22 x2=%22952%22 y1=%2275%22 y2=%22125%22/%3E%3Cline x1=%22968%22 x2=%22968%22 y1=%2281%22 y2=%22119%22/%3E%3Cline x1=%22984%22 x2=%22984%22 y1=%2278%22 y2=%22122%22/%3E%3Cline x1=%221000%22 x2=%221000%22 y1=%2277%22 y2=%22123%22/%3E%3Cline x1=%221016%22 x2=%221016%22 y1=%2285%22 y2=%22115%22/%3E%3Cline x1=%221032%22 x2=%221032%22 y1=%2270%22 y2=%22130%22/%3E%3Cline x1=%221048%22 x2=%221048%22 y1=%2276%22 y2=%22124%22/%3E%3Cline x1=%221064%22 x2=%221064%22 y1=%2269%22 y2=%22131%22/%3E%3Cline x1=%221080%22 x2=%221080%22 y1=%2274%22 y2=%22126%22/%3E%3Cline x1=%221096%22 x2=%221096%22 y1=%2284%22 y2=%22116%22/%3E%3Cline x1=%221112%22 x2=%221112%22 y1=%2267%22 y2=%22133%22/%3E%3Cline x1=%221128%22 x2=%221128%22 y1=%2269%22 y2=%22131%22/%3E%3Cline x1=%221144%22 x2=%221144%22 y1=%2249%22 y2=%22151%22/%3E%3Cline x1=%221160%22 x2=%221160%22 y1=%2249%22 y2=%22151%22/%3E%3Cline x1=%221176%22 x2=%221176%22 y1=%2249%22 y2=%22151%22/%3E%3Cline x1=%221192%22 x2=%221192%22 y1=%2249%22 y2=%22151%22/%3E%3Cline x1=%221208%22 x2=%221208%22 y1=%2270%22 y2=%22130%22/%3E%3Cline x1=%221224%22 x2=%221224%22 y1=%2271%22 y2=%22129%22/%3E%3Cline x1=%221240%22 x2=%221240%22 y1=%2277%22 y2=%22123%22/%3E%3Cline x1=%221256%22 x2=%221256%22 y1=%2259%22 y2=%22141%22/%3E%3Cline x1=%221272%22 x2=%221272%22 y1=%2249%22 y2=%22151%22/%3E%3Cline x1=%221288%22 x2=%221288%22 y1=%2252%22 y2=%22148%22/%3E%3Cline x1=%221304%22 x2=%221304%22 y1=%2243%22 y2=%22157%22/%3E%3Cline x1=%221320%22 x2=%221320%22 y1=%2260%22 y2=%22140%22/%3E%3Cline x1=%221336%22 x2=%221336%22 y1=%2259%22 y2=%22141%22/%3E%3Cline x1=%221352%22 x2=%221352%22 y1=%2272%22 y2=%22128%22/%3E%3Cline x1=%221368%22 x2=%221368%22 y1=%2282%22 y2=%22118%22/%3E%3Cline x1=%221384%22 x2=%221384%22 y1=%2269%22 y2=%22131%22/%3E%3Cline x1=%221400%22 x2=%221400%22 y1=%2279%22 y2=%22121%22/%3E%3Cline x1=%221416%22 x2=%221416%22 y1=%2266%22 y2=%22134%22/%3E%3Cline x1=%221432%22 x2=%221432%22 y1=%2276%22 y2=%22124%22/%3E%3Cline x1=%221448%22 x2=%221448%22 y1=%2277%22 y2=%22123%22/%3E%3Cline x1=%221464%22 x2=%221464%22 y1=%2278%22 y2=%22122%22/%3E%3Cline x1=%221480%22 x2=%221480%22 y1=%2285%22 y2=%22115%22/%3E%3Cline x1=%221496%22 x2=%221496%22 y1=%2275%22 y2=%22125%22/%3E%3Cline x1=%221512%22 x2=%221512%22 y1=%2283%22 y2=%22117%22/%3E%3Cline x1=%221528%22 x2=%221528%22 y1=%2270%22 y2=%22130%22/%3E%3Cline x1=%221544%22 x2=%221544%22 y1=%2263%22 y2=%22137%22/%3E%3Cline x1=%221560%22 x2=%221560%22 y1=%2262%22 y2=%22138%22/%3E%3Cline x1=%221576%22 x2=%221576%22 y1=%2250%22 y2=%22150%22/%3E%3Cline x1=%221592%22 x2=%221592%22 y1=%2263%22 y2=%22137%22/%3E%3C/svg%3E") repeat-x 0 50%/1600px 200px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent);mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent);animation:slide 70s linear infinite}
+@keyframes breathe{from{transform:scale(1)}to{transform:scale(1.09)}}
+@keyframes dots{to{background-position:28px 28px}}
+@keyframes slide{to{background-position:-1600px 50%}}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.deco::before{animation:none!important}.js .reveal{opacity:1;transform:none}}

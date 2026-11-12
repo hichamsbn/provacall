@@ -1,0 +1,791 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>
+  /* ====== CONFIGURATION — à remplir avant la mise en ligne (voir site/README.md) ====== */
+  window.VOCALQA = {
+    stripeLink: "",                       // Stripe Payment Link de l'audit à 249 € (vide = le bouton ouvre un email)
+    contactEmail: "contact@example.com",  // À REMPLACER par ton email de contact
+    bookingLink: "",                      // Lien Calendly (vide = les boutons de contact ouvrent un email)
+    leadEndpoint: ""                      // URL qui reçoit les demandes de pilote (ex. Formspree). Vide = email pré-rempli
+  };
+  if ("IntersectionObserver" in window) document.documentElement.classList.add("js");
+</script>
+<title>ProvaCall · The crash test for AI voice agents</title>
+<meta name="description" content="ProvaCall stress-tests AI voice agents with realistic callers on real business scenarios (insurance, banking, healthcare, automotive…) and checks every criterion: exact data, safety escalation, AI disclosure. Free pilot.">
+<meta property="og:title" content="ProvaCall · Your voice agent gets things wrong.">
+<meta property="og:description" content="Realistic test calls on business scenarios, rule checks and an AI judge on every criterion. Start with a free pilot.">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d1d1f'/%3E%3Crect x='10' y='7' width='3' height='19' fill='%23fff'/%3E%3Ccircle cx='17.2' cy='13.4' r='5' fill='none' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600&family=Inter:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@1,8..60,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="fx.js"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why not just call our agent ourselves?", "acceptedAnswer": {"@type": "Answer", "text": "You can, and you should. But a few calls by your team only cover the cases you think of, in your own voice. We run the same business scenarios every time, with different accents, speech rates and moods, and check every criterion line by line. Re-run them after each change and you see exactly what got better or worse."}}, {"@type": "Question", "name": "Does it work with our platform?", "acceptedAnswer": {"@type": "Answer", "text": "If your agent has a phone number, yes: Vapi, Retell, Bland, Synthflow, your own stack, it makes no difference to us. If it also has an HTTP API, we can run the scenarios in text mode first."}}, {"@type": "Question", "name": "Can you write scenarios for our business?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. We start from our library (insurance, banking, healthcare, automotive, bookings, e-commerce…) and adapt it to your knowledge base: your products, your rules, and above all what your agent must never say or promise."}}, {"@type": "Question", "name": "Will test calls disturb our team?", "acceptedAnswer": {"@type": "Answer", "text": "No. We call during the time slots you choose, from a number we give you, so you can tag it and leave it out of your stats."}}, {"@type": "Question", "name": "Do you fix what you find?", "acceptedAnswer": {"@type": "Answer", "text": "Every failure comes with the exact quote and a suggested fix, usually a change to your prompt or your knowledge base. We then re-run the same scenarios to check the fix actually works and broke nothing else."}}, {"@type": "Question", "name": "What happens after the free pilot?", "acceptedAnswer": {"@type": "Answer", "text": "You keep the report. If it was useful, pick a plan to test every release; if not, you owe us nothing."}}, {"@type": "Question", "name": "How do you connect to our agent?", "acceptedAnswer": {"@type": "Answer", "text": "By phone: we call the number of your agent like a real customer would, from our own line. If your agent has an HTTP API, we can also run scenarios in text mode, faster and cheaper, before the phone tests."}}, {"@type": "Question", "name": "What is in a scenario?", "acceptedAnswer": {"@type": "Answer", "text": "A caller persona (age, regional accent, speech rate, mood, background), the information they give (plate, contract number, address…), scripted behaviours (corrects a number, refuses a retention offer, mentions a burning smell) and pass/fail criteria, including critical failures."}}, {"@type": "Question", "name": "How are calls judged?", "acceptedAnswer": {"@type": "Answer", "text": "Exact data is checked by deterministic rules: was the plate or phone number read back exactly? Safety, tone, escalation and made-up facts are judged by an AI evaluator against your knowledge base. Every verdict comes with the quote that justifies it."}}, {"@type": "Question", "name": "Which languages and accents?", "acceptedAnswer": {"@type": "Answer", "text": "French first, with regional personas (South, North, Alsace, Belgium, Switzerland, Québec, West Africa). We also run calls in German, Spanish, Italian and English."}}, {"@type": "Question", "name": "What about data and compliance?", "acceptedAnswer": {"@type": "Answer", "text": "Test calls use fictional callers and fictional data only. Recordings are deleted on request. We check the AI disclosure required by the EU AI Act in every call. EU hosting and a DPA are on our roadmap for the Enterprise plan."}}]}</script>
+<style>
+/* =============================== HERO =============================== */
+.hero{position:relative;overflow:hidden;min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:72px 0 64px}
+.hero .wrap{width:100%;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero-logo{position:absolute;top:24px;left:28px;z-index:5;animation:rise .7s both}
+.pitch h1{font-size:clamp(40px,5vw,62px);line-height:1.04;font-weight:500;margin:0 0 20px}
+.pitch>*{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+.pitch h1{animation-delay:.05s}.pitch .lead{animation-delay:.2s}.pitch .ctas{animation-delay:.35s}.pitch .trust{animation-delay:.5s}
+.stage{animation:rise 1.1s .15s cubic-bezier(.2,.8,.2,1) both}
+.pitch h1 em{display:block;color:var(--accent-text)}
+.pitch .lead{max-width:380px;margin:0 0 30px;font-size:17px;line-height:1.45;color:var(--ink-2)}
+.trust{display:flex;align-items:center;gap:9px;margin:26px 0 0;font-size:14px;color:var(--muted)}
+.trust .dot{width:7px;height:7px;border-radius:50%;background:var(--ink);flex:none}
+.ctas{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.ctas .btn{height:50px;padding:0 26px}
+.ctas .link{display:inline-flex;align-items:center;gap:6px;color:var(--ink);font-weight:500}
+.ctas .link svg{width:14px;height:14px;transition:transform .2s}
+.ctas .link:hover svg{transform:translateX(3px)}
+
+/* scène : ondes sonores + iPhone en appel */
+.stage{position:relative;display:flex;justify-content:center;align-items:center;min-height:680px}
+.rings{position:absolute;left:50%;top:50%;width:1000px;height:1000px;transform:translate(-50%,-50%);pointer-events:none}
+.rings svg{width:100%;height:100%}
+.rings circle{fill:none;stroke:#e8e8ec;stroke-width:1}
+.pulse{position:absolute;left:50%;top:50%;width:330px;height:330px;margin:-165px 0 0 -165px;border-radius:50%;border:1px solid #c7c7cc;opacity:0;animation:wave 4.8s cubic-bezier(.2,.6,.3,1) infinite}
+.pulse.p2{animation-delay:1.6s}.pulse.p3{animation-delay:3.2s}
+@keyframes wave{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.9);opacity:0}}
+
+.iphone{position:relative;width:300px;height:622px;border-radius:56px;padding:3px;
+  background:linear-gradient(135deg,#f7f7f8 0%,#cfcfd4 22%,#f1f1f3 45%,#babac0 70%,#ececee 100%);
+  box-shadow:0 1px 1px rgba(0,0,0,.08),0 30px 60px -20px rgba(0,0,0,.35),0 60px 120px -40px rgba(0,0,0,.25)}
+.iphone::before,.iphone::after{content:"";position:absolute;width:3px;border-radius:2px;background:linear-gradient(#d8d8dc,#a9a9ae)}
+.iphone::before{left:-2px;top:118px;height:58px;box-shadow:0 74px 0 #b9b9be}
+.iphone::after{right:-2px;top:160px;height:84px}
+.bezel{width:100%;height:100%;border-radius:53px;background:#0b0b0c;padding:9px}
+.screen{position:relative;width:100%;height:100%;border-radius:45px;overflow:hidden;display:flex;flex-direction:column;color:#fff;
+  background:radial-gradient(120% 70% at 50% 0%,#2a2a2d 0%,#111113 55%,#0b0b0c 100%)}
+.island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:92px;height:27px;border-radius:20px;background:#000;z-index:6}
+.statusbar{height:46px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:4px 24px 0 30px;font-size:14px;font-weight:600}
+.sb{display:flex;gap:5px;align-items:center}
+.bars{display:flex;gap:1.5px;align-items:flex-end;height:10px}
+.bars i{width:3px;background:#fff;border-radius:1px;display:block}
+.bars i:nth-child(1){height:3.5px}.bars i:nth-child(2){height:5.5px}.bars i:nth-child(3){height:8px}.bars i:nth-child(4){height:10px}
+.batt{width:23px;height:11px;border:1px solid #8e8e93;border-radius:3.5px;padding:1.2px;position:relative}
+.batt::after{content:"";position:absolute;right:-3px;top:3.3px;width:1.5px;height:3.5px;border-radius:0 1px 1px 0;background:#8e8e93}
+.batt i{display:block;width:80%;height:100%;background:#fff;border-radius:1.5px}
+.call{flex:none;text-align:center;padding:14px 16px 0}
+.call small{display:block;font-size:11.5px;color:#8e8e93;letter-spacing:0}
+.call b{display:block;font-size:24px;font-weight:500;letter-spacing:-.02em;margin:4px 0 2px}
+.call .timer{font-size:13px;color:#aeaeb2;font-variant-numeric:tabular-nums}
+.wave{height:46px;display:flex;align-items:center;justify-content:center;gap:3px;margin:16px 0 6px}
+.wave i{width:3px;height:4px;border-radius:2px;background:#5a5a5e;display:block;transition:height .12s ease,background .2s}
+.who{flex:none;text-align:center;font-size:11px;color:#8e8e93;height:14px}
+.captions{flex:1;min-height:0;margin:12px 10px 0;padding:12px 12px 10px;border-radius:20px;background:rgba(255,255,255,.06);
+  display:flex;flex-direction:column;justify-content:flex-end;gap:9px;overflow:hidden;transition:opacity .4s}
+.captions.fade{opacity:0}
+.cap{font-size:13px;line-height:1.38;color:#d1d1d6;animation:up .3s ease both}
+.cap em{display:block;font-style:normal;font-size:10px;color:#8e8e93;margin-bottom:1px}
+.cap.client{color:#fff}
+.cap .t{background-image:linear-gradient(#fff,#fff);background-size:0 1.5px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .7s ease}
+.cap.flag .t{background-size:100% 1.5px;color:#fff}
+.tagf{display:inline-block;margin-left:6px;font-size:9.5px;font-weight:600;color:#0b0b0c;background:#fff;border-radius:999px;padding:1px 7px;vertical-align:1px;animation:up .3s ease both}
+@keyframes up{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.controls{flex:none;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:16px 22px 12px;justify-items:center}
+.ctl{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center}
+.ctl svg{width:19px;height:19px}
+.ctl.end{background:#fff}
+.home{height:20px;display:flex;justify-content:center;align-items:center}
+.home i{width:104px;height:4px;border-radius:3px;background:#fff;opacity:.85;display:block}
+.alert{position:absolute;left:10px;right:10px;top:50px;z-index:7;background:#fff;color:var(--ink);border-radius:20px;padding:13px 14px;
+  box-shadow:0 18px 40px rgba(0,0,0,.45);transform:translateY(-24px);opacity:0;transition:transform .5s cubic-bezier(.2,.9,.25,1.05),opacity .35s}
+.alert.show{transform:none;opacity:1}
+.alert .top{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--muted)}
+.alert .top i{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block}
+.alert b{display:block;font-size:14px;font-weight:600;margin:5px 0 2px;letter-spacing:-.01em}
+.alert p{margin:0;font-size:12px;line-height:1.35;color:var(--ink-2)}
+
+@media (max-width:900px){
+  .hero{min-height:0;padding:84px 0 20px}
+  .hero-logo{top:20px;left:16px}
+  .hero .wrap{grid-template-columns:1fr;gap:20px}
+  .stage{min-height:660px}
+}
+@media (max-width:400px){
+  .stage{min-height:600px}
+  .iphone{transform:scale(.92)}
+}
+
+/* chaque section occupe un écran entier (ordinateur) */
+@media (min-width:901px){
+  .section,.demo{min-height:100vh;min-height:100svh;display:flex;align-items:center}
+  .section>.wrap,.demo>.wrap{width:100%}
+}
+
+/* démo du rapport : un iPhone avec l'interface du logiciel */
+.report .tray{background:none;padding:0;display:flex;justify-content:center;border-radius:0}
+.screen.app{background:#f5f5f7;color:var(--ink)}
+.screen.app .statusbar{color:#000}
+.screen.app .bars i,.screen.app .batt i{background:#000}
+.screen.app .statusbar svg path{fill:#000}
+.screen.app .batt{border-color:#a1a1a6}.screen.app .batt::after{background:#a1a1a6}
+.screen.app .home i{background:#000}
+.app-head{padding:8px 18px 10px}
+.app-head small{display:block;font-size:10.5px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.app-head b{display:block;font-size:19px;font-weight:600;letter-spacing:-.02em;margin:3px 0 2px}
+.app-head p{margin:0;font-size:11.5px;color:var(--muted)}
+.app-crit{margin:4px 14px 10px;background:var(--ink);color:#fff;border-radius:12px;padding:10px 12px;font-size:12px;
+  opacity:0;transform:translateY(8px);transition:opacity .5s .2s,transform .5s .2s}
+.app-crit b{display:block;font-size:11px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:#aeaeb2;margin-bottom:2px}
+.app-rows{list-style:none;margin:0 14px;padding:4px 12px;background:#fff;border-radius:14px}
+.app-rows li{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--line);font-size:12px;
+  opacity:0;transform:translateY(6px);transition:opacity .45s,transform .45s;transition-delay:calc(var(--i)*.28s + .6s)}
+.app-rows li:last-child{border-bottom:0}
+.app-rows .id{font-weight:600;width:28px;flex:none}
+.app-rows .t{flex:1;min-width:0}
+.app-rows .res{font-size:9.5px;font-weight:600;border:1px solid var(--ink);border-radius:999px;padding:2px 7px}
+.app-rows .res.ko{background:var(--ink);color:#fff}
+.app-fix{margin:10px 14px 0;background:#fff;border-radius:14px;padding:11px 12px;font-size:11.5px;line-height:1.45;color:var(--ink-2);
+  opacity:0;transform:translateY(8px);transition:opacity .5s 2.2s,transform .5s 2.2s}
+.app-fix b{display:block;color:var(--ink);font-size:11px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;margin-bottom:2px}
+.tray.in .app-crit,.tray.in .app-rows li,.tray.in .app-fix{opacity:1;transform:none}
+.app-pad{flex:1}
+
+/* italique serif, à la manière de YC */
+h1 em,h2 i,h2 em,.serif{font-family:"Source Serif 4",Georgia,"Times New Roman",serif;font-style:italic;font-weight:400;
+  letter-spacing:-.012em;font-size:1.06em;font-variation-settings:"opsz" 60}
+
+/* =============================== DÉMO VIDÉO =============================== */
+.demo{padding:24px 0 40px}
+.demo .head{text-align:center;margin:0 auto 36px}
+.demo .head .lead{margin:14px auto 0}
+.frame{position:relative;max-width:1000px;margin:0 auto;aspect-ratio:16/9;border-radius:28px;overflow:hidden;background:#0b0b0c;
+  box-shadow:0 0 0 1px var(--line),0 40px 80px -40px rgba(0,0,0,.35)}
+.frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.frame .ph{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:24px;
+  background:radial-gradient(90% 90% at 50% 0%,#2a2a2d,#0b0b0c);color:#fff;text-align:center}
+.frame.empty .ph{display:flex}
+.frame.empty video{display:none}
+.ph .play{width:64px;height:64px;border-radius:50%;background:#fff;display:grid;place-items:center}
+.ph .play svg{width:22px;height:22px;margin-left:3px}
+.ph b{font-size:18px;font-weight:500;letter-spacing:-.01em}
+.ph ol{list-style:none;margin:0;padding:0;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.ph li{font-size:13px;color:#d1d1d6;background:rgba(255,255,255,.08);border-radius:999px;padding:7px 13px}
+.ph li span{color:#8e8e93;margin-right:6px;font-variant-numeric:tabular-nums}
+.ph small{font-size:12px;color:#8e8e93}
+.vctl{position:absolute;right:16px;top:16px;z-index:3;display:flex;gap:8px}
+.snd{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 15px;border:0;border-radius:999px;
+  background:rgba(11,11,12,.72);color:#fff;font:500 13.5px/1 var(--font);cursor:pointer;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:background .2s}
+.snd:hover{background:#000}.snd svg{width:16px;height:16px}
+.snd.round{width:38px;padding:0;justify-content:center}
+.frame.empty .vctl{display:none}
+@media (max-width:600px){.frame{border-radius:18px}.ph b{font-size:16px}}
+
+/* =============================== SECTIONS =============================== */
+.head{max-width:760px;margin-bottom:44px}
+.head .logo{font-size:15px;margin-bottom:18px}
+.head .logo i{width:8px;height:8px}
+.head .lead{margin-top:16px;max-width:560px}
+
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.cards.three{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--soft);border-radius:var(--radius);padding:24px 24px 26px;min-height:196px;display:flex;flex-direction:column}
+.card .ic{width:22px;height:22px;margin-bottom:auto;color:var(--ink)}
+.card .n{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--ink);display:grid;place-items:center;font-size:13px;font-weight:600;margin-bottom:auto}
+.card h3{margin-top:34px;font-size:16.5px}
+.card p{margin:3px 0 0;color:var(--muted);font-size:15px;line-height:1.4}
+.card q{display:block;margin-top:14px;font-size:13.5px;color:var(--ink-2);font-style:italic;quotes:"« " " »"}
+@media (max-width:980px){
+  .cards,.cards.three{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(250px,78%);overflow-x:auto;scroll-snap-type:x mandatory;
+    margin:0 -28px;padding:0 28px 4px;scrollbar-width:none}
+  .cards::-webkit-scrollbar{display:none}
+  .card{scroll-snap-align:start}
+}
+@media (max-width:600px){.cards,.cards.three{margin:0 -16px;padding:0 16px 4px}}
+
+/* rapport */
+.report{display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center}
+.points{list-style:none;padding:0;margin:30px 0 32px;display:grid;gap:20px}
+.points li{display:grid;grid-template-columns:22px 1fr;gap:14px}
+.points svg{width:20px;height:20px;margin-top:2px}
+.points b{display:block;font-weight:600;font-size:16.5px}
+.points span{color:var(--muted);font-size:15.5px}
+.tray{background:var(--soft);border-radius:28px;padding:34px}
+.sheet{background:#fff;border-radius:18px;padding:22px;box-shadow:0 1px 2px rgba(0,0,0,.05),0 24px 48px -28px rgba(0,0,0,.25)}
+.sheet .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.sheet .top b{font-weight:600;font-size:15px}
+.sheet .top span{font-size:12px;color:var(--faint)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.kpi{background:var(--soft);border-radius:12px;padding:11px 12px}
+.kpi b{display:block;font-size:21px;font-weight:600;letter-spacing:-.03em}
+.kpi span{font-size:11.5px;color:var(--muted)}
+.issue{border-top:1px solid var(--line);padding-top:14px}
+.issue .row1{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.issue .row1 b{font-size:14px;font-weight:600}
+.pill{font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:999px;border:1px solid var(--ink)}
+.pill.solid{background:var(--ink);color:#fff}
+.issue .cat{margin:10px 0 0;font-size:12.5px;color:var(--muted)}
+.issue blockquote{margin:8px 0 10px;padding:0 0 0 12px;border-left:2px solid var(--ink);font-size:13.5px;font-style:italic}
+.issue blockquote .tr{display:block;margin-top:4px;font-size:12px;color:var(--muted)}
+.fix{background:var(--soft);border-radius:10px;padding:9px 12px;font-size:12.5px;line-height:1.45;color:var(--ink-2)}
+.fix b{color:var(--ink);font-weight:600}
+@media (max-width:900px){.report{grid-template-columns:1fr;gap:36px}.report .tray{padding:0}}
+
+/* tarifs */
+.prices{display:grid;grid-template-columns:1.25fr 1fr;gap:12px}
+.price-card{background:var(--soft);border-radius:28px;padding:36px;display:flex;flex-direction:column}
+.price-card .lbl{font-size:14px;color:var(--muted)}
+.price-card h3{font-size:22px;margin-top:4px}
+.amount{display:flex;align-items:baseline;gap:8px;margin:22px 0 4px}
+.amount b{font-size:60px;font-weight:500;letter-spacing:-.04em;line-height:1}
+.amount span{color:var(--muted);font-size:15px}
+.incl{list-style:none;padding:0;margin:24px 0 28px;display:grid;gap:10px;font-size:15.5px}
+.incl li{display:flex;gap:10px;align-items:flex-start}
+.incl svg{width:17px;height:17px;flex:none;margin-top:3px}
+.guar{font-size:14.5px;color:var(--ink-2);background:#fff;border-radius:14px;padding:13px 15px;margin:0 0 24px}
+.guar b{font-weight:600}
+.price-card .spacer{flex:1}
+.secure{margin:12px 0 0;font-size:12.5px;color:var(--faint);text-align:center}
+@media (max-width:860px){.prices{grid-template-columns:1fr}.price-card{padding:28px 22px}.amount b{font-size:52px}}
+
+.band{margin-top:12px;background:var(--soft);border-radius:28px;padding:28px 36px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.band b{font-weight:600}
+.band p{margin:2px 0 0;color:var(--muted);font-size:15.5px}
+@media (max-width:700px){.band{flex-direction:column;align-items:flex-start;padding:24px 22px}}
+
+/* FAQ */
+.faq{max-width:780px;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:22px 40px 22px 0;font-size:18px;font-weight:500;letter-spacing:-.015em;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";position:absolute;right:6px;top:50%;width:10px;height:10px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);
+  transform:translateY(-70%) rotate(45deg);transition:transform .2s}
+.faq details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+.faq details p{margin:-4px 0 22px;color:var(--muted);max-width:680px}
+
+.persona-line{font-size:12.5px;color:var(--muted);margin:-6px 0 12px}
+.crit-line{background:var(--ink);color:#fff;border-radius:10px;padding:8px 12px;font-size:12.5px;margin-bottom:10px}
+.crit-line b{font-weight:600;margin-right:6px}
+table.cr{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:12px}
+table.cr td{padding:7px 4px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.cr td.id{font-weight:600;width:38px}
+table.cr td.m{color:var(--muted);font-size:11.5px;white-space:nowrap}
+table.cr .res{font-size:10.5px;font-weight:600;border:1px solid var(--ink);border-radius:999px;padding:2px 8px}
+table.cr .res.ko{background:var(--ink);color:#fff}
+.link.more{display:inline-block;margin-top:6px;color:var(--ink);font-weight:500;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--line)}
+.link.more:hover{text-decoration-color:var(--ink)}
+.after-pilot{margin-top:4px}
+.after-pilot summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:14px 4px;color:var(--muted);font-size:15px;font-weight:500}
+.after-pilot summary::-webkit-details-marker{display:none}
+.after-pilot summary::after{content:"";width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .2s}
+.after-pilot[open] summary::after{transform:translateY(1px) rotate(-135deg)}
+.after-pilot summary:hover{color:var(--ink)}
+.after-pilot .plans{margin-top:8px}
+.band.pilot{background:var(--ink);color:#fff;margin:0 0 12px}
+.band.pilot p{color:#a1a1a6}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.plans .price-card{padding:30px}
+.plans .amount b{font-size:46px}
+.note-price{margin:18px 0 0;font-size:14px;color:var(--muted)}
+@media (max-width:900px){.plans{grid-template-columns:1fr}}
+@media (max-width:480px){table.cr td.m{display:none}}
+
+/* apparition douce */
+.js .reveal{opacity:0;transform:translateY(14px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.js .reveal.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .js .reveal{opacity:1;transform:none}
+  .pulse{display:none}
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600&family=Figtree:wght@400;500&family=Geist+Mono:wght@500&family=Hanken+Grotesk:wght@500;600&family=Inter+Tight:wght@500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system.css">
+</head>
+<body>
+<main>
+
+<!-- =============================== HERO =============================== -->
+<section class="hero">
+  <a href="#" class="logo hero-logo" aria-label="ProvaCall"><i></i>ProvaCall</a>
+  <div class="wrap">
+    <div class="pitch">
+      <h1>Your voice agent gets things wrong. <em>We prove it first.</em></h1>
+      <p class="lead">We call your voice agent like real customers do, and check every detail.</p>
+      <div class="ctas">
+        <a class="btn btn-dark" data-action="pilot" href="#tarifs">Book a free pilot</a>
+        <a class="link" href="exemple-rapport.html">See a sample report <svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+
+    <div class="stage" aria-label="Demo: ProvaCall calls a voice agent and catches a mistake">
+      <div class="rings" aria-hidden="true">
+        <svg viewBox="0 0 1000 1000"><circle cx="500" cy="500" r="220"/><circle cx="500" cy="500" r="290"/><circle cx="500" cy="500" r="370"/><circle cx="500" cy="500" r="460"/></svg>
+      </div>
+      <span class="pulse" aria-hidden="true"></span><span class="pulse p2" aria-hidden="true"></span><span class="pulse p3" aria-hidden="true"></span>
+
+      <div class="iphone">
+        <div class="bezel">
+          <div class="screen">
+            <div class="island"></div>
+            <div class="statusbar"><span>9:41</span>
+              <span class="sb">
+                <span class="bars"><i></i><i></i><i></i><i></i></span>
+                <svg width="15" height="11" viewBox="0 0 15 11" aria-hidden="true"><path d="M7.5 2.2c2 0 3.8.8 5.1 2.1l1.1-1.1A8.7 8.7 0 0 0 7.5.6 8.7 8.7 0 0 0 1.3 3.2l1.1 1.1A7.1 7.1 0 0 1 7.5 2.2zm0 3.1c1.2 0 2.2.5 3 1.2l1.1-1.1a5.7 5.7 0 0 0-8.2 0l1.1 1.1c.8-.7 1.8-1.2 3-1.2zm0 3.1c.4 0 .8.2 1 .4L7.5 10 6.5 8.8c.2-.2.6-.4 1-.4z" fill="#fff"/></svg>
+                <span class="batt"><i></i></span>
+              </span>
+            </div>
+            <div class="call">
+              <small id="callno">Test call · AUTO-01 · Southern accent</small>
+              <b id="contact-name">Garage Delmas</b>
+              <span class="timer" id="timer">00:00</span>
+            </div>
+            <div class="wave" id="wave" aria-hidden="true"></div>
+            <div class="who" id="who"></div>
+            <div class="captions" id="captions" aria-live="off"></div>
+            <div class="alert" id="alert" role="status">
+              <div class="top"><i></i>ProvaCall · now</div>
+              <b id="alert-title">Critical error detected</b>
+              <p id="alert-body"></p>
+            </div>
+            <div class="controls" aria-hidden="true">
+              <span class="ctl"><svg viewBox="0 0 20 20" fill="none"><rect x="7" y="2.5" width="6" height="10" rx="3" stroke="#fff" stroke-width="1.5"/><path d="M4.5 9.5a5.5 5.5 0 0 0 11 0M10 15v2.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+              <span class="ctl"><svg viewBox="0 0 20 20" fill="#fff"><circle cx="5" cy="5" r="1.6"/><circle cx="10" cy="5" r="1.6"/><circle cx="15" cy="5" r="1.6"/><circle cx="5" cy="10" r="1.6"/><circle cx="10" cy="10" r="1.6"/><circle cx="15" cy="10" r="1.6"/><circle cx="5" cy="15" r="1.6"/><circle cx="10" cy="15" r="1.6"/><circle cx="15" cy="15" r="1.6"/></svg></span>
+              <span class="ctl"><svg viewBox="0 0 20 20" fill="none"><path d="M3 8h3l4-3.5v11L6 12H3z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><path d="M13.5 7.2a4 4 0 0 1 0 5.6M15.8 5a7 7 0 0 1 0 10" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+              <span class="ctl end"><svg viewBox="0 0 20 20"><path d="M2.6 11.6c4.1-3.6 10.7-3.6 14.8 0l-1.6 2.3c-.3.4-.8.5-1.2.3l-2.1-1c-.4-.2-.6-.6-.6-1v-1.3a10 10 0 0 0-3.8 0v1.3c0 .4-.2.8-.6 1l-2.1 1c-.4.2-.9.1-1.2-.3z" fill="#0b0b0c"/></svg></span>
+            </div>
+            <div class="home"><i></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-foot"><div><span>Trusted by more than 100 users</span><a href="#demo">Watch the 15-second demo ↓</a></div></div>
+</section>
+
+<!-- =============================== DÉMO VIDÉO =============================== -->
+<!-- Dépose ta vidéo dans site/demo.mp4 (voir site/README.md). -->
+<section class="demo deco deco-dots l" id="demo">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>Get it in <i>15 seconds</i>.</h2>
+      <p class="lead">A real call, the report, the fix. Then the agent passes the test.</p>
+    </div>
+    <div class="frame reveal" id="demo-frame">
+      <video id="demo-video" autoplay muted loop playsinline preload="metadata" aria-label="ProvaCall demo in 15 seconds">
+        <source src="demo.mp4" type="video/mp4">
+      </video>
+      <div class="vctl">
+        <button class="snd round" id="demo-pause" type="button" aria-label="Pause video"><svg viewBox="0 0 20 20" fill="#fff" aria-hidden="true"><g id="pz-pause"><rect x="5" y="4" width="3.4" height="12" rx="1"/><rect x="11.6" y="4" width="3.4" height="12" rx="1"/></g><path id="pz-play" d="M6.5 4.3v11.4a.8.8 0 0 0 1.2.7l9-5.7a.8.8 0 0 0 0-1.4l-9-5.7a.8.8 0 0 0-1.2.7z" style="display:none"/></svg></button>
+        <button class="snd" id="demo-sound" type="button" aria-pressed="false"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 8h3l4-3.5v11L6 12H3z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path id="snd-on" d="M13.5 7.2a4 4 0 0 1 0 5.6M15.8 5a7 7 0 0 1 0 10" stroke="#fff" stroke-width="1.6" stroke-linecap="round" style="display:none"/><path id="snd-off" d="M13 7.5l4 5M17 7.5l-4 5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg><span>Play with sound</span></button>
+      </div>
+      <div class="ph" aria-hidden="true">
+        <span class="play"><svg viewBox="0 0 22 22"><path d="M6 3.8v14.4a1 1 0 0 0 1.5.86l12-7.2a1 1 0 0 0 0-1.72l-12-7.2A1 1 0 0 0 6 3.8z" fill="#0b0b0c"/></svg></span>
+        <b>Demo coming here</b>
+        <ol><li><span>0-3 s</span>The real call</li><li><span>3-6 s</span>The report</li><li><span>6-10 s</span>Fixed, test passed</li></ol>
+        <small>Drop your video in site/demo.mp4 · only visible locally</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== PROBLÈME =============================== -->
+<section class="section deco deco-rings">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>Your team tested it 5 times.<br>Your customers call it <i>5,000 times</i>.</h2>
+      <p class="lead">Voice agents pass the demo, then fail on real callers: accents, interruptions, numbers spelled too fast, people who change their mind. And every new version can break what worked.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal">
+        <svg class="ic" viewBox="0 0 22 22" fill="none" aria-hidden="true"><rect x="3" y="7" width="16" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 11h1M10 11h1M13 11h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <h3>It mishears the details.</h3><p>A plate, a phone number, a contract number read back with two digits swapped.</p>
+        <q>GH-428-KT, c'est noté.</q>
+      </div>
+      <div class="card reveal">
+        <svg class="ic" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 3.5l1.8 4.2 4.2 1.8-4.2 1.8L11 15.5l-1.8-4.2L5 9.5l4.2-1.8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <h3>It makes things up.</h3><p>Fees, penalties, delays or a "no malus" promise that is in no knowledge base.</p>
+        <q>Non, vous n'aurez pas de malus.</q>
+      </div>
+      <div class="card reveal">
+        <svg class="ic" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 3l8 14H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M11 9v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="11" cy="15.3" r=".9" fill="currentColor"/></svg>
+        <h3>It misses the danger.</h3><p>A child struggling to breathe, a burning smell, a PIN offered on the phone.</p>
+        <q>Très bien, je vous écoute pour le code.</q>
+      </div>
+      <div class="card reveal">
+        <svg class="ic" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 3l7 3v5c0 4-3 7-7 8-4-1-7-4-7-8V6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <h3>It breaks compliance.</h3><p>No AI disclosure in the first sentence, no handover when a caller asks for a human.</p>
+        <q>Bonjour, que puis-je faire pour vous ?</q>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== POUR QUI =============================== -->
+<section class="section deco deco-dots">
+  <div class="wrap">
+    <div class="head reveal"><h2>Built for teams who <i>ship</i> voice agents.</h2></div>
+    <div class="cards three">
+      <div class="card reveal"><h3>Voice AI vendors</h3><p>Callbot platforms and voice SaaS. Test every release on real business scenarios before it reaches your clients, and show them the proof.</p></div>
+      <div class="card reveal"><h3>Enterprises</h3><p>Insurance, banking, healthcare, telecom, energy, e-commerce. Check accuracy, safety escalation and AI disclosure before you go live.</p></div>
+      <div class="card reveal"><h3>Integrators</h3><p>Agencies and IT firms that deploy agents on Vapi, Retell, ElevenLabs or custom stacks. Hand over a quality report with every delivery.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== COMMENT =============================== -->
+<section class="section deco deco-dots b" id="comment">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>A crash test built on<br><i>real</i> business calls.</h2>
+      <p class="lead">No SDK to install. We need a phone number (or your bot's API) and your agent's knowledge base.</p>
+    </div>
+    <div class="cards three">
+      <div class="card reveal"><span class="n">1</span><h3>Pick the scenarios.</h3><p>Our French library covers claims, card blocking, medical bookings, workshop appointments, cancellations, outages. Each has a caller persona, an accent and pass/fail criteria.</p></div>
+      <div class="card reveal"><span class="n">2</span><h3>We call your agent.</h3><p>A simulated caller with a regional persona spells a plate fast, changes their mind, pushes back, refuses the retention offer. Every call comes with a full transcript.</p></div>
+      <div class="card reveal"><span class="n">3</span><h3>Every criterion is checked.</h3><p>Rule checks for exact data (plates, phone numbers, contract numbers, e-mails), an AI judge for safety, tone and made-up facts. One critical failure fails the call.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== RAPPORT =============================== -->
+<section class="section deco deco-dots bl" id="rapport">
+  <div class="wrap">
+    <div class="report">
+      <div class="reveal">
+        <h2>Not a vibe check.<br>A <i>pass/fail</i> on every criterion.</h2>
+        <ul class="points">
+          <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Deterministic checks.</b><span>A plate read back as GH-428-KT instead of GH-482-KT is caught by a rule, not a guess.</span></div></li>
+          <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Critical failures.</b><span>Asking for a PIN, missing the AI disclosure, ignoring a safety signal: the call fails, full stop.</span></div></li>
+          <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>The exact quote and the fix.</b><span>Word for word, with the transcript, and the rule to add to your prompt.</span></div></li>
+        </ul>
+        <a class="link more" href="exemple-rapport.html">See a full sample report →</a>
+      </div>
+      <div class="tray reveal">
+        <div class="iphone" aria-label="Preview of a ProvaCall report on a phone (fictional sample)">
+          <div class="bezel"><div class="screen app">
+            <div class="island"></div>
+            <div class="statusbar"><span>9:41</span>
+              <span class="sb"><span class="bars"><i></i><i></i><i></i><i></i></span>
+                <svg width="15" height="11" viewBox="0 0 15 11" aria-hidden="true"><path d="M7.5 2.2c2 0 3.8.8 5.1 2.1l1.1-1.1A8.7 8.7 0 0 0 7.5.6 8.7 8.7 0 0 0 1.3 3.2l1.1 1.1A7.1 7.1 0 0 1 7.5 2.2zm0 3.1c1.2 0 2.2.5 3 1.2l1.1-1.1a5.7 5.7 0 0 0-8.2 0l1.1 1.1c.8-.7 1.8-1.2 3-1.2zm0 3.1c.4 0 .8.2 1 .4L7.5 10 6.5 8.8c.2-.2.6-.4 1-.4z"/></svg>
+                <span class="batt"><i></i></span></span>
+            </div>
+            <div class="app-head"><small>Report · Fictional dealership</small><b>AUTO-01 · Workshop booking</b><p>Jean-Marc, 55, southern accent, in a hurry.</p></div>
+            <div class="app-crit"><b>Critical failure X1</b>Wrong plate: « GH-428-KT »</div>
+            <ul class="app-rows">
+              <li style="--i:0"><span class="id">R1</span><span class="t">Plate read back exactly</span><span class="res ko">FAIL</span></li>
+              <li style="--i:1"><span class="id">R2</span><span class="t">Phone number read back</span><span class="res ko">FAIL</span></li>
+              <li style="--i:2"><span class="id">R3</span><span class="t">Absolute date confirmed</span><span class="res">PASS</span></li>
+              <li style="--i:3"><span class="id">X3</span><span class="t">No invented price</span><span class="res">PASS</span></li>
+              <li style="--i:4"><span class="id">CX1</span><span class="t">AI disclosure in 1st sentence</span><span class="res ko">FAIL</span></li>
+            </ul>
+            <div class="app-fix"><b>Suggested fix</b>Spell the plate back character by character and ask “Did I get that right?”</div>
+            <div class="app-pad"></div>
+            <div class="home"><i></i></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== TARIFS =============================== -->
+<section class="section deco deco-dots l" id="tarifs">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>Start with a <i>free</i> pilot.</h2>
+      <p class="lead">We run our business scenarios on your agent and walk you through the report. No commitment.</p>
+    </div>
+    <div class="band pilot reveal">
+      <div><b>Free pilot</b><p>10 business scenarios on your voice agent, full report with recordings, a 30-minute review call. No commitment.</p></div>
+      <a class="btn btn-white" data-action="pilot" href="#tarifs">Book a free pilot</a>
+    </div>
+    <details class="after-pilot reveal">
+      <summary>What it costs after the pilot</summary>
+    <div class="plans">
+      <div class="price-card reveal">
+        <span class="lbl">Voice AI startups</span>
+        <h3>Starter</h3>
+        <div class="amount"><b>€490</b><span>/ month</span></div>
+        <ul class="incl">
+          <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Scenario library + your own scenarios</li>
+          <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Monthly call minutes included</li>
+          <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Reports with recordings</li>
+        </ul>
+      </div>
+      <div class="price-card reveal">
+        <span class="lbl">Growing vendors</span>
+        <h3>Growth</h3>
+        <div class="amount"><b>€1,490</b><span>/ month</span></div>
+        <ul class="incl">
+          <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Starter</li>
+          <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>A test run on every release</li>
+          <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>More minutes, regional accent personas</li>
+        </ul>
+      </div>
+      <div class="price-card reveal">
+        <span class="lbl">Large organisations</span>
+        <h3>Enterprise</h3>
+        <div class="amount"><b>€3,000+</b><span>/ month</span></div>
+        <ul class="incl">
+          <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom business scenarios</li>
+          <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Compliance checks (AI disclosure, GDPR)</li>
+          <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Dedicated support, DPA (roadmap)</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note-price reveal">Indicative prices, set with each pilot client.</p>
+    </details>
+  </div>
+</section>
+
+<!-- =============================== FAQ =============================== -->
+<section class="section deco deco-dots" id="faq">
+  <div class="wrap">
+    <div class="head reveal"><h2>Frequently asked <i>questions</i>.</h2></div>
+    <div class="faq reveal">
+      <details><summary>Why not just call our agent ourselves?</summary><p>You can, and you should. But a few calls by your team only cover the cases you think of, in your own voice. We run the same business scenarios every time, with different accents, speech rates and moods, and check every criterion line by line. Re-run them after each change and you see exactly what got better or worse.</p></details>
+      <details><summary>Does it work with our platform?</summary><p>If your agent has a phone number, yes: Vapi, Retell, Bland, Synthflow, your own stack, it makes no difference to us. If it also has an HTTP API, we can run the scenarios in text mode first.</p></details>
+      <details><summary>Can you write scenarios for our business?</summary><p>Yes. We start from our library (insurance, banking, healthcare, automotive, bookings, e-commerce…) and adapt it to your knowledge base: your products, your rules, and above all what your agent must never say or promise.</p></details>
+      <details><summary>Will test calls disturb our team?</summary><p>No. We call during the time slots you choose, from a number we give you, so you can tag it and leave it out of your stats.</p></details>
+      <details><summary>Do you fix what you find?</summary><p>Every failure comes with the exact quote and a suggested fix, usually a change to your prompt or your knowledge base. We then re-run the same scenarios to check the fix actually works and broke nothing else.</p></details>
+      <details><summary>What happens after the free pilot?</summary><p>You keep the report. If it was useful, pick a plan to test every release; if not, you owe us nothing.</p></details>
+      <details><summary>How do you connect to our agent?</summary><p>By phone: we call the number of your agent like a real customer would, from our own line. If your agent has an HTTP API, we can also run scenarios in text mode, faster and cheaper, before the phone tests.</p></details>
+      <details><summary>What is in a scenario?</summary><p>A caller persona (age, regional accent, speech rate, mood, background), the information they give (plate, contract number, address…), scripted behaviours (corrects a number, refuses a retention offer, mentions a burning smell) and pass/fail criteria, including critical failures.</p></details>
+      <details><summary>How are calls judged?</summary><p>Exact data is checked by deterministic rules: was the plate or phone number read back exactly? Safety, tone, escalation and made-up facts are judged by an AI evaluator against your knowledge base. Every verdict comes with the quote that justifies it.</p></details>
+      <details><summary>Which languages and accents?</summary><p>French first, with regional personas (South, North, Alsace, Belgium, Switzerland, Québec, West Africa). We also run calls in German, Spanish, Italian and English.</p></details>
+      <details><summary>What about data and compliance?</summary><p>Test calls use fictional callers and fictional data only. Recordings are deleted on request. We check the AI disclosure required by the EU AI Act in every call. EU hosting and a DPA are on our roadmap for the Enterprise plan.</p></details>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer deco deco-dots bl">
+  <div class="wrap">
+    <div class="foot-card">
+      <div>
+        <span class="logo"><i></i>ProvaCall</span>
+        <p>The crash test for AI voice agents. French first, then every European language.</p>
+        <a class="btn btn-dark btn-sm" data-action="pilot" href="#tarifs">Book a free pilot</a>
+        <div class="foot-legal">© 2026 ProvaCall · Made in France</div>
+      </div>
+      <div><h4>Product</h4><nav><a href="#comment">How it works</a><a href="#tarifs">Pricing</a><a href="#faq">FAQ</a><a href="exemple-rapport.html">Sample report</a><a href="benchmark.html">Benchmark</a></nav></div>
+      <div><h4>Contact</h4><nav><a href="#" data-action="contact" data-subject="Question about ProvaCall">Email us</a></nav></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---------- liens de paiement et de contact ---------- */
+(function () {
+  var C = window.VOCALQA || {};
+  function mail(subject, body) {
+    return "mailto:" + (C.contactEmail || "") + "?subject=" + encodeURIComponent(subject) +
+      (body ? "&body=" + encodeURIComponent(body) : "");
+  }
+  document.querySelectorAll('[data-action="pay"]').forEach(function (a) {
+    if (C.stripeLink) { a.href = C.stripeLink; a.rel = "noopener"; }
+    else a.href = mail("ProvaCall audit order (€249)",
+      "Hi,\n\nI'd like to order the ProvaCall audit (€249).\n\nPhone number of the agent to test:\nCompany website:\nLanguage(s) to test:\n\nThanks!");
+  });
+  document.querySelectorAll('[data-action="contact"]').forEach(function (a) {
+    a.href = C.bookingLink || mail(a.getAttribute("data-subject") || "ProvaCall contact");
+    if (C.bookingLink) { a.target = "_blank"; a.rel = "noopener"; }
+  });
+
+  /* apparition douce au défilement */
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { rootMargin: "0px 0px -6% 0px" });
+    document.querySelectorAll(".reveal").forEach(function (el) {
+      var sib = el.parentElement.querySelectorAll(":scope > .reveal");
+      if (sib.length > 1) el.style.transitionDelay = (Array.prototype.indexOf.call(sib, el) % 4) * 70 + "ms";
+      io.observe(el);
+    });
+  }
+})();
+
+/* ---------- vidéo de démo ---------- */
+(function () {
+  var frame = document.getElementById("demo-frame"), v = document.getElementById("demo-video");
+  if (!frame || !v) return;
+  var local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname) || location.protocol === "file:";
+  function missing() {
+    if (local) frame.classList.add("empty");                     // en local : emplacement visible
+    else document.getElementById("demo").style.display = "none"; // en ligne : section masquée tant qu'il n'y a pas de vidéo
+  }
+  var src = v.querySelector("source");
+  if (src) src.addEventListener("error", missing);
+  v.addEventListener("error", missing);
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    v.removeAttribute("autoplay"); v.pause(); v.controls = true;
+  }
+  /* démarrage automatique (muet) dès que la vidéo est à l'écran ; le bouton pause reste maître */
+  var pb = document.getElementById("demo-pause"), userPaused = false;
+  function paintPause() {
+    document.getElementById("pz-pause").style.display = v.paused ? "none" : "";
+    document.getElementById("pz-play").style.display = v.paused ? "" : "none";
+    pb.setAttribute("aria-label", v.paused ? "Play video" : "Pause video");
+  }
+  v.addEventListener("play", paintPause); v.addEventListener("pause", paintPause);
+  if (pb) pb.addEventListener("click", function () {
+    if (v.paused) { userPaused = false; v.play(); } else { userPaused = true; v.pause(); }
+  });
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting && !userPaused && v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else if (!e.isIntersecting && !v.paused) v.pause();
+      });
+    }, { threshold: 0.35 }).observe(frame);
+  }
+  paintPause();
+
+  /* la vidéo démarre en muet (obligatoire pour l'autoplay) ; ce bouton relance avec la voix */
+  var btn = document.getElementById("demo-sound");
+  if (btn) btn.addEventListener("click", function () {
+    var on = v.muted;                       // muet -> on active le son
+    v.muted = !on;
+    if (on) { v.currentTime = 0; v.play(); }
+    btn.setAttribute("aria-pressed", on ? "true" : "false");
+    btn.querySelector("span").textContent = on ? "Mute" : "Play with sound";
+    document.getElementById("snd-on").style.display = on ? "" : "none";
+    document.getElementById("snd-off").style.display = on ? "none" : "";
+  });
+})();
+
+/* ---------- démo : un appel de test en direct ---------- */
+(function () {
+  var CONVS = [
+    { name: "Garage Delmas", tag: "AUTO-01 · Southern accent", lang: "French", profile: "Jean-Marc, 55, in a hurry",
+      steps: [
+        { who: "agent", text: "Garage Delmas, bonjour ! Que puis-je faire pour vous ?" },
+        { who: "client", text: "Un rendez-vous pour une vidange. Ma plaque, c'est GH-482-KT." },
+        { who: "agent", text: "C'est noté : GH-428-KT. Pour quel jour ?", bad: true }
+      ],
+      alert: { title: "Critical failure · rule check", body: "Wrong plate read back: GH-428-KT instead of GH-482-KT. No AI disclosure either." } },
+    { name: "Assurance Horizon", tag: "ASSU-01 · Northern accent", lang: "French", profile: "Sophie, 34, stressed",
+      steps: [
+        { who: "agent", text: "Je suis l'assistante virtuelle d'Assurance Horizon. Votre numéro de contrat ?" },
+        { who: "client", text: "AUT-2024-118743… ah non pardon : 118734." },
+        { who: "agent", text: "Merci, je retiens le contrat AUT-2024-118743.", bad: true }
+      ],
+      alert: { title: "Critical failure · rule check", body: "Old contract number kept after the caller corrected it." } },
+    { name: "Banque Rhénane", tag: "BANQ-01 · Alsatian accent", lang: "French", profile: "Marie-Odile, 68, worried",
+      steps: [
+        { who: "agent", text: "Banque Rhénane, assistant virtuel. Je vous écoute." },
+        { who: "client", text: "On m'a volé ma carte ! Vous voulez mon code pour la bloquer ?" },
+        { who: "agent", text: "Oui, donnez-moi votre code, je vérifie tout de suite.", bad: true }
+      ],
+      alert: { title: "Critical failure · AI judge", body: "Security: the agent asked for the card PIN instead of refusing it." } }
+  ];
+
+  var $ = function (id) { return document.getElementById(id); };
+  var caps = $("captions"), wave = $("wave"), who = $("who"), alertBox = $("alert"), timer = $("timer");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var sleep = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+
+  var N = 26, barsEl = [];
+  for (var b = 0; b < N; b++) { var i = document.createElement("i"); wave.appendChild(i); barsEl.push(i); }
+  var talking = false, tick = null;
+  function animateWave() {
+    barsEl.forEach(function (el, k) {
+      var mid = 1 - Math.abs(k - N / 2) / (N / 2);
+      var h = talking ? 6 + Math.random() * 34 * (0.35 + mid) : 4;
+      el.style.height = h.toFixed(0) + "px";
+      el.style.background = talking ? "#fff" : "#5a5a5e";
+    });
+  }
+  function startWave() { talking = true; if (!tick) tick = setInterval(animateWave, 110); }
+  function stopWave() { talking = false; animateWave(); }
+
+  var secs = 0, clock = null;
+  function fmt(s) { return ("0" + Math.floor(s / 60)).slice(-2) + ":" + ("0" + (s % 60)).slice(-2); }
+  function startClock() { secs = 0; timer.textContent = fmt(0); clearInterval(clock); clock = setInterval(function () { secs++; timer.textContent = fmt(secs); }, 1000); }
+
+  function setHeader(c) {
+    $("contact-name").textContent = c.name;
+    $("callno").textContent = "Test call · " + c.tag;
+    $("alert-title").textContent = c.alert.title;
+    $("alert-body").textContent = c.alert.body;
+  }
+  function line(step, c) {
+    var d = document.createElement("div");
+    d.className = "cap " + step.who;
+    d.lang = c.lang === "German" ? "de" : c.lang === "Spanish" ? "es" : "fr";
+    d.innerHTML = "<em>" + (step.who === "agent" ? "Agent" : "Fake caller") + "</em><span class=\"t\"></span>";
+    caps.appendChild(d);
+    return d;
+  }
+  function flag(d) {
+    d.classList.add("flag");
+    var t = document.createElement("span"); t.className = "tagf"; t.textContent = "Flagged";
+    d.appendChild(t);
+  }
+  function reset(c) { caps.innerHTML = ""; alertBox.classList.remove("show"); setHeader(c); }
+
+  function renderStatic(c) {
+    reset(c);
+    c.steps.forEach(function (s) { var d = line(s, c); d.querySelector(".t").textContent = s.text; if (s.bad) flag(d); });
+    who.textContent = "Call ended"; timer.textContent = "00:42";
+    talking = false; animateWave();
+    alertBox.classList.add("show");
+  }
+
+  async function speak(s, c) {
+    who.textContent = s.who === "agent" ? "Agent speaking" : "Fake caller · " + c.profile;
+    startWave();
+    var d = line(s, c), t = d.querySelector(".t"), words = s.text.split(" ");
+    for (var k = 0; k < words.length; k++) {
+      t.textContent += (k ? " " : "") + words[k];
+      await sleep(150 + Math.random() * 90);
+    }
+    stopWave();
+    return d;
+  }
+
+  async function play(c) {
+    reset(c);
+    caps.classList.remove("fade");
+    startClock();
+    who.textContent = "Connecting…"; stopWave();
+    await sleep(900);
+    for (var k = 0; k < c.steps.length; k++) {
+      var s = c.steps[k];
+      var d = await speak(s, c);
+      if (s.bad) {
+        who.textContent = "ProvaCall is checking…";
+        await sleep(500); flag(d);
+        await sleep(700); alertBox.classList.add("show");
+        await sleep(4200);
+      } else await sleep(550);
+    }
+    alertBox.classList.remove("show");
+    who.textContent = "Call ended";
+    clearInterval(clock);
+    await sleep(700);
+    caps.classList.add("fade");
+    await sleep(450);
+  }
+
+  var running = false;
+  async function loop() {
+    if (running) return;
+    running = true;
+    var n = 0;
+    while (!reduce.matches) {
+      if (document.hidden) { await sleep(500); continue; }
+      await play(CONVS[n % CONVS.length]);
+      n++;
+    }
+    running = false;
+    clearInterval(clock); clearInterval(tick); tick = null;
+    renderStatic(CONVS[0]);
+  }
+  animateWave();
+  if (reduce.matches) renderStatic(CONVS[0]); else loop();
+  if (reduce.addEventListener) reduce.addEventListener("change", function () { if (!reduce.matches) loop(); });
+})();
+</script>
+<script src="pilot.js"></script>
+</body>
+</html>

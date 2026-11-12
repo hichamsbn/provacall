@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>
+  /* Même email que dans index.html (window.VOCALQA.contactEmail) */
+  window.VOCALQA = { contactEmail: "contact@example.com" };
+</script>
+<title>Pilot request received · ProvaCall</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d1d1f'/%3E%3Crect x='10' y='7' width='3' height='19' fill='%23fff'/%3E%3Ccircle cx='17.2' cy='13.4' r='5' fill='none' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600&family=Geist+Mono:wght@500&family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="fx.js"></script>
+<style>
+.thanks{padding:80px 0 110px}
+.thanks .wrap{max-width:760px}
+.check{width:64px;height:64px;border-radius:50%;background:var(--ink);display:grid;place-items:center;margin-bottom:30px}
+.check svg{width:30px;height:30px}
+.thanks h1{font-size:clamp(40px,6vw,64px);margin-bottom:20px}
+.list{counter-reset:n;list-style:none;padding:0;margin:40px 0;display:grid;gap:12px}
+.list li{counter-increment:n;display:flex;gap:16px;align-items:flex-start;border:1px solid var(--line);border-radius:18px;padding:20px 22px}
+.list li::before{content:counter(n);width:32px;height:32px;flex:none;border-radius:50%;background:var(--ink);color:#fff;font-weight:700;font-size:14px;display:grid;place-items:center}
+.list b{display:block;font-size:17px;letter-spacing:-.02em;margin-bottom:2px}
+.list span{color:var(--ink-2);font-size:15px}
+.next{background:var(--soft);border-radius:18px;padding:20px 22px;font-size:15px;color:var(--ink-2);margin-top:28px}
+.next b{color:var(--ink)}
+@media (max-width:480px){.thanks .btn{width:100%}}
+</style>
+<link rel="stylesheet" href="system.css">
+</head>
+<body>
+<header class="header"><div class="wrap"><a href="index.html" class="logo"><i></i>ProvaCall</a></div></header>
+<main class="thanks deco deco-dots">
+  <div class="wrap">
+    <div class="check"><svg viewBox="0 0 30 30" fill="none" aria-hidden="true"><path d="M8 15.5l4.6 4.6L22.5 10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <h1>Thank you! <span class="gray">Your pilot request is in.</span></h1>
+    <p class="lead">We'll get back to you within one business day. To prepare your free pilot, we just need three things:</p>
+    <ol class="list">
+      <li><div><b>Your agent's phone number</b><span>Ideally a test number, otherwise the public one. Tell us which language(s) to test.</span></div></li>
+      <li><div><b>The business info</b><span>Hours, prices, rules, and above all what it does not offer. A copy-paste of the prompt or website is enough.</span></div></li>
+      <li><div><b>Test time slots</b><span>Days and times when we can call without disturbing the team.</span></div></li>
+    </ol>
+    <a class="btn btn-dark" id="send-info" href="#">Send this info by email</a>
+    <p class="next"><b>What happens next?</b> We pick 10 business scenarios with you, call your agent, and walk you through the report in a 30-minute review.</p>
+  </div>
+</main>
+<footer class="footer"><div class="wrap"><a href="index.html" class="logo" style="color:var(--ink)"><i></i>ProvaCall</a><span>© 2026 ProvaCall</span></div></footer>
+<script>
+(function () {
+  var C = window.VOCALQA || {};
+  var body = "Hi,\n\nHere is the info for our ProvaCall pilot:\n\n" +
+    "1. Phone number of the agent to test:\n   Language(s) to test:\n\n" +
+    "2. Business info (hours, prices, rules, what it does not offer):\n\n\n" +
+    "3. Time slots when you can call:\n\n" +
+    "Company:\n\nThanks!";
+  document.getElementById("send-info").href = "mailto:" + (C.contactEmail || "") +
+    "?subject=" + encodeURIComponent("Info for our ProvaCall pilot") + "&body=" + encodeURIComponent(body);
+})();
+</script>
+</body>
+</html>
