@@ -194,7 +194,7 @@
     if (!C.leadEndpoint) { // pas encore d'outil de réception : email pré-rempli
       location.href = "mailto:" + (C.contactEmail || "") + "?subject=" + encodeURIComponent(payload._subject) +
         "&body=" + encodeURIComponent("Bonjour,\n\nNous aimerions un pilote gratuit ProvaCall.\n\n" + summary() + "\n\nMerci !");
-      setTimeout(function () { location.href = "../merci.html"; }, 800);
+      setTimeout(function () { location.href = "merci.html"; }, 800);
       return;
     }
     fetch(C.leadEndpoint, {
@@ -206,7 +206,7 @@
       return r.json().catch(function () { return { success: true }; });
     }).then(function (j) {
       if (j && (j.success === false || j.success === "false")) throw new Error(j.message || "rejected");
-      location.href = "../merci.html";
+      location.href = "merci.html";
     }).catch(function () {
       nx.disabled = false;
       nx.textContent = "Réessayer";
