@@ -1,0 +1,4 @@
+Contact: mailto:hello@provacall.com
+Expires: 2027-11-17T00:00:00.000Z
+Preferred-Languages: en, fr
+Canonical: https://provacall.com/.well-known/security.txt

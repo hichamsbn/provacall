@@ -17,7 +17,7 @@
   if ("IntersectionObserver" in window) document.documentElement.classList.add("js");
 </script>
 <title>ProvaCall · The crash test for AI voice agents</title>
-<meta name="description" content="ProvaCall stress-tests AI voice agents with realistic callers on real business scenarios (insurance, banking, healthcare, automotive…) and checks every criterion: exact data, safety escalation, AI disclosure. Free pilot.">
+<meta name="description" content="ProvaCall crash-tests AI voice agents with realistic callers on real business scenarios and checks every criterion. Free pilot.">
 <link rel="canonical" href="https://provacall.com/">
 <link rel="alternate" hreflang="en" href="https://provacall.com/">
 <link rel="alternate" hreflang="fr" href="https://provacall.com/fr/">
@@ -50,7 +50,7 @@
 .hero{position:relative;overflow:hidden;min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:72px 0 64px}
 .hero .wrap{width:100%;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
 .hero-logo{position:absolute;top:24px;left:28px;z-index:5;animation:rise .7s both}
-.lang{position:absolute;top:14px;right:20px;z-index:5;font-size:14px;font-weight:500}.lang a{color:var(--ink);text-decoration:none;opacity:.72;padding:8px 8px;display:inline-block;min-width:32px;text-align:center}.lang a[aria-current]{opacity:1;text-decoration:underline;text-underline-offset:4px}@media(max-width:820px){.lang{top:10px;right:8px}}
+.lang{position:absolute;top:14px;right:20px;z-index:5;font-size:14px;font-weight:500}.lang a{color:var(--muted);text-decoration:none;padding:8px 8px;display:inline-block;min-width:32px;text-align:center}.lang a[aria-current]{color:var(--ink);text-decoration:underline;text-underline-offset:4px}@media(max-width:820px){.lang{top:10px;right:8px}}
 .pitch h1{font-size:clamp(40px,5vw,62px);line-height:1.04;font-weight:500;margin:0 0 20px}
 .pitch>*{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
 .pitch h1{animation-delay:.05s}.pitch .lead{animation-delay:.2s}.pitch .ctas{animation-delay:.35s}.pitch .trust{animation-delay:.5s}
@@ -608,9 +608,9 @@ table.cr .res.ko{background:var(--ink);color:#fff}
         <a class="btn btn-dark btn-sm" data-action="pilot" href="#tarifs">Book a free pilot</a>
         <div class="foot-legal">© 2026 ProvaCall · Made in France</div>
       </div>
-      <div><h4>Product</h4><nav><a href="#comment">How it works</a><a href="#tarifs">Pricing</a><a href="#faq">FAQ</a><a href="exemple-rapport.html">Sample report</a><a href="benchmark.html">Benchmark</a></nav></div>
-      <div><h4>Contact</h4><nav><a href="book.html">Book a call</a><a href="mailto:hello@provacall.com?subject=Question%20about%20ProvaCall" data-action="contact" data-subject="Question about ProvaCall">Email us</a></nav></div>
-      <div><h4>Legal</h4><nav><a href="privacy.html">Privacy policy</a><a href="terms.html">Terms of service</a><a href="refunds.html">Refund policy</a><a href="legal.html">Legal notice</a><a href="mailto:hello@provacall.com?subject=Data%20deletion%20request%20-%20ProvaCall&amp;body=Hello%2C%0A%0APlease%20delete%20all%20personal%20data%20you%20hold%20about%20me.%0A%0AThe%20email%20address%20I%20used%3A%20%0ACompany%3A%20%0A%0AThank%20you.">Delete my data</a></nav></div>
+      <div><h3>Product</h3><nav><a href="#comment">How it works</a><a href="#tarifs">Pricing</a><a href="#faq">FAQ</a><a href="exemple-rapport.html">Sample report</a><a href="benchmark.html">Benchmark</a></nav></div>
+      <div><h3>Contact</h3><nav><a href="book.html">Book a call</a><a href="mailto:hello@provacall.com?subject=Question%20about%20ProvaCall" data-action="contact" data-subject="Question about ProvaCall">Email us</a></nav></div>
+      <div><h3>Legal</h3><nav><a href="privacy.html">Privacy policy</a><a href="terms.html">Terms of service</a><a href="refunds.html">Refund policy</a><a href="legal.html">Legal notice</a><a href="mailto:hello@provacall.com?subject=Data%20deletion%20request%20-%20ProvaCall&amp;body=Hello%2C%0A%0APlease%20delete%20all%20personal%20data%20you%20hold%20about%20me.%0A%0AThe%20email%20address%20I%20used%3A%20%0ACompany%3A%20%0A%0AThank%20you.">Delete my data</a></nav></div>
     </div>
   </div>
 </footer>
@@ -630,7 +630,7 @@ table.cr .res.ko{background:var(--ink);color:#fff}
   });
   document.querySelectorAll('[data-audit-price]').forEach(function (b) {
     var n = C.auditPrice; if (!n) return;
-    b.textContent = b.getAttribute("data-audit-price") === "fr" ? n + " €" : "€" + n;
+    b.textContent = b.getAttribute("data-audit-price") === "fr" ? n + "\u00a0€" : "€" + n;
   });
   document.querySelectorAll('[data-action="contact"]').forEach(function (a) {
     a.href = C.bookingLink || mail(a.getAttribute("data-subject") || "ProvaCall contact");

@@ -17,7 +17,7 @@
   if ("IntersectionObserver" in window) document.documentElement.classList.add("js");
 </script>
 <title>ProvaCall · Le crash test des agents vocaux IA</title>
-<meta name="description" content="ProvaCall met les agents vocaux IA à l'épreuve avec des appelants réalistes sur de vrais scénarios métier (assurance, banque, santé, automobile…) et vérifie chaque critère : données exactes, sécurité, informations inventées, annonce IA. Pilote gratuit.">
+<meta name="description" content="ProvaCall fait passer un crash test à vos agents vocaux IA avec des appelants réalistes et vérifie chaque critère. Pilote gratuit.">
 <link rel="canonical" href="https://provacall.com/fr/">
 <link rel="alternate" hreflang="en" href="https://provacall.com/">
 <link rel="alternate" hreflang="fr" href="https://provacall.com/fr/">
@@ -50,7 +50,7 @@
 .hero{position:relative;overflow:hidden;min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:72px 0 64px}
 .hero .wrap{width:100%;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
 .hero-logo{position:absolute;top:24px;left:28px;z-index:5;animation:rise .7s both}
-.lang{position:absolute;top:14px;right:20px;z-index:5;font-size:14px;font-weight:500}.lang a{color:var(--ink);text-decoration:none;opacity:.72;padding:8px 8px;display:inline-block;min-width:32px;text-align:center}.lang a[aria-current]{opacity:1;text-decoration:underline;text-underline-offset:4px}@media(max-width:820px){.lang{top:10px;right:8px}}
+.lang{position:absolute;top:14px;right:20px;z-index:5;font-size:14px;font-weight:500}.lang a{color:var(--muted);text-decoration:none;padding:8px 8px;display:inline-block;min-width:32px;text-align:center}.lang a[aria-current]{color:var(--ink);text-decoration:underline;text-underline-offset:4px}@media(max-width:820px){.lang{top:10px;right:8px}}
 .pitch h1{font-size:clamp(40px,5vw,62px);line-height:1.04;font-weight:500;margin:0 0 20px}
 .pitch>*{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
 .pitch h1{animation-delay:.05s}.pitch .lead{animation-delay:.2s}.pitch .ctas{animation-delay:.35s}.pitch .trust{animation-delay:.5s}
@@ -504,7 +504,7 @@ table.cr .res.ko{background:var(--ink);color:#fff}
       <div class="price-card reveal" id="audit">
         <span class="lbl">Audit unique</span>
         <h3>Audit</h3>
-        <div class="amount"><b data-audit-price="fr">190 €</b><span>HT, une seule fois</span></div>
+        <div class="amount"><b data-audit-price="fr">190 €</b><span>HT, une seule fois</span></div>
         <ul class="incl">
           <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Un agent vocal, 10 scénarios métier</li>
           <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Rapport complet : transcriptions, citation exacte et correction pour chaque échec</li>
@@ -516,7 +516,7 @@ table.cr .res.ko{background:var(--ink);color:#fff}
       <div class="price-card reveal">
         <span class="lbl">Startups de voix IA</span>
         <h3>Starter</h3>
-        <div class="amount"><b>490 €</b><span>/ mois</span></div>
+        <div class="amount"><b>490 €</b><span>/ mois</span></div>
         <ul class="incl">
           <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Bibliothèque de scénarios + vos propres scénarios</li>
           <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>1 500 minutes d'appel incluses par mois</li>
@@ -526,7 +526,7 @@ table.cr .res.ko{background:var(--ink);color:#fff}
       <div class="price-card reveal">
         <span class="lbl">Éditeurs en croissance</span>
         <h3>Growth</h3>
-        <div class="amount"><b>1 490 €</b><span>/ mois</span></div>
+        <div class="amount"><b>1 490 €</b><span>/ mois</span></div>
         <ul class="incl">
           <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Tout ce qui est dans Starter</li>
           <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Un passage de test à chaque version</li>
@@ -536,7 +536,7 @@ table.cr .res.ko{background:var(--ink);color:#fff}
       <div class="price-card reveal">
         <span class="lbl">Grandes organisations</span>
         <h3>Enterprise</h3>
-        <div class="amount"><b>3 000 €+</b><span>/ mois</span></div>
+        <div class="amount"><b>3 000 €+</b><span>/ mois</span></div>
         <ul class="incl">
           <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>15 000+ minutes d'appel par mois, scénarios métier sur mesure</li>
           <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 6.8" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Contrôles de conformité (annonce IA, passage à un humain)</li>
@@ -588,9 +588,9 @@ table.cr .res.ko{background:var(--ink);color:#fff}
         <a class="btn btn-dark btn-sm" data-action="pilot" href="#tarifs">Réserver un pilote gratuit</a>
         <div class="foot-legal">© 2026 ProvaCall · Fabriqué en France</div>
       </div>
-      <div><h4>Produit</h4><nav><a href="#comment">Comment ça marche</a><a href="#tarifs">Tarifs</a><a href="#faq">FAQ</a><a href="../exemple-rapport.html">Exemple de rapport</a><a href="../benchmark.html">Benchmark</a></nav></div>
-      <div><h4>Contact</h4><nav><a href="../book.html">Réserver un appel</a><a href="mailto:hello@provacall.com?subject=Question%20sur%20ProvaCall" data-action="contact" data-subject="Question sur ProvaCall">Nous écrire</a></nav></div>
-      <div><h4>Légal</h4><nav><a href="../privacy.html">Confidentialité</a><a href="../terms.html">Conditions</a><a href="../refunds.html">Remboursement</a><a href="../legal.html">Mentions légales</a><a href="mailto:hello@provacall.com?subject=Demande%20de%20suppression%20de%20donn%C3%A9es%20-%20ProvaCall&amp;body=Bonjour%2C%0A%0AMerci%20de%20supprimer%20toutes%20les%20donn%C3%A9es%20personnelles%20que%20vous%20d%C3%A9tenez%20sur%20moi.%0A%0AL%27adresse%20e-mail%20utilis%C3%A9e%20%3A%20%0AEntreprise%20%3A%20%0A%0AMerci.">Supprimer mes données</a></nav></div>
+      <div><h3>Produit</h3><nav><a href="#comment">Comment ça marche</a><a href="#tarifs">Tarifs</a><a href="#faq">FAQ</a><a href="../exemple-rapport.html">Exemple de rapport</a><a href="../benchmark.html">Benchmark</a></nav></div>
+      <div><h3>Contact</h3><nav><a href="../book.html">Réserver un appel</a><a href="mailto:hello@provacall.com?subject=Question%20sur%20ProvaCall" data-action="contact" data-subject="Question sur ProvaCall">Nous écrire</a></nav></div>
+      <div><h3>Légal</h3><nav><a href="../privacy.html">Confidentialité</a><a href="../terms.html">Conditions</a><a href="../refunds.html">Remboursement</a><a href="../legal.html">Mentions légales</a><a href="mailto:hello@provacall.com?subject=Demande%20de%20suppression%20de%20donn%C3%A9es%20-%20ProvaCall&amp;body=Bonjour%2C%0A%0AMerci%20de%20supprimer%20toutes%20les%20donn%C3%A9es%20personnelles%20que%20vous%20d%C3%A9tenez%20sur%20moi.%0A%0AL%27adresse%20e-mail%20utilis%C3%A9e%20%3A%20%0AEntreprise%20%3A%20%0A%0AMerci.">Supprimer mes données</a></nav></div>
     </div>
   </div>
 </footer>
@@ -610,7 +610,7 @@ table.cr .res.ko{background:var(--ink);color:#fff}
   });
   document.querySelectorAll('[data-audit-price]').forEach(function (b) {
     var n = C.auditPrice; if (!n) return;
-    b.textContent = b.getAttribute("data-audit-price") === "fr" ? n + " €" : "€" + n;
+    b.textContent = b.getAttribute("data-audit-price") === "fr" ? n + "\u00a0€" : "€" + n;
   });
   document.querySelectorAll('[data-action="contact"]').forEach(function (a) {
     a.href = C.bookingLink || mail(a.getAttribute("data-subject") || "Contact ProvaCall");

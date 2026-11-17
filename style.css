@@ -50,7 +50,7 @@ h3{font-size:19px;font-weight:600;letter-spacing:-.015em;line-height:1.25}
 .footer{padding:40px 0 0;overflow:hidden}
 .foot-card{border-radius:28px;background:#fff;box-shadow:0 0 0 1px var(--line),0 20px 50px -30px rgba(0,0,0,.18);
   padding:40px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
-.foot-card h4{margin:0 0 14px;font-size:14px;font-weight:600}
+.foot-card h4,.foot-card h3{margin:0 0 14px;font-size:14px;font-weight:600}
 .foot-card p{margin:8px 0 18px;color:var(--muted);font-size:14.5px;max-width:280px}
 .foot-card nav{display:grid;gap:10px;font-size:14.5px}
 .foot-card nav a{text-decoration:none;color:var(--muted)}
