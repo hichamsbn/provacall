@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://formsubmit.co; base-uri 'self'; form-action 'self'; object-src 'none'; frame-src https://cal.com https://app.cal.com">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Book a call with the founders · ProvaCall</title>
+<meta name="description" content="Book a 20-minute video call with the ProvaCall founders: see how we crash-test your AI voice agent and whether a free pilot fits.">
+<link rel="canonical" href="https://provacall.com/book.html">
+<meta property="og:url" content="https://provacall.com/book.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Book a call with the ProvaCall founders">
+<meta property="og:description" content="20 minutes on video: see how we crash-test your AI voice agent and whether a free pilot fits.">
+<meta property="og:site_name" content="ProvaCall">
+<meta property="og:image" content="https://provacall.com/og-logo.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ProvaCall logo: a black letter P on a white background.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Book a call with the ProvaCall founders">
+<meta name="twitter:description" content="20 minutes on video: see how we crash-test your AI voice agent and whether a free pilot fits.">
+<meta name="twitter:image" content="https://provacall.com/og-logo.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d1d1f'/%3E%3Crect x='10' y='7' width='3' height='19' fill='%23fff'/%3E%3Ccircle cx='17.2' cy='13.4' r='5' fill='none' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="fonts.css?v=6">
+<link rel="stylesheet" href="style.css?v=6">
+<link rel="stylesheet" href="system.css?v=6">
+<script src="fx.js?v=6"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header"><div class="wrap"><a href="index.html" class="logo"><i></i>ProvaCall</a></div></header>
+<main id="main" class="book deco deco-dots" tabindex="-1">
+<div class="wrap">
+  <div class="book-grid">
+    <div class="book-copy">
+      <p class="legal-meta">20 minutes · Google Meet · Free</p>
+      <h1>Book a call with the founders.</h1>
+      <p class="lead">Talk to the people who build ProvaCall. We show you how we crash-test a voice agent, and you tell us what yours must never get wrong.</p>
+      <a class="btn btn-dark btn-lg" id="book-btn" href="mailto:hello@provacall.com">Pick a time</a>
+      <p class="book-note" id="book-note">Opens our calendar in a new tab. You get a Google Meet link by email.</p>
+      <p class="book-alt">Not ready to talk? <a href="index.html#pilot">Start with a free pilot</a> instead.</p>
+    </div>
+    <aside class="book-card" aria-label="What happens on the call">
+      <h2>On the call</h2>
+      <ol>
+        <li><b>Your agent.</b><span>What it does, which platform it runs on, and what worries you most.</span></li>
+        <li><b>A live look.</b><span>We walk you through a real report: the call, the exact quote, the fix.</span></li>
+        <li><b>Is a pilot useful?</b><span>If yes, we agree on the 10 scenarios. If not, you owe us nothing.</span></li>
+      </ol>
+      <p class="book-small">Nothing to prepare. If you can, have the agent's phone number or platform name at hand.</p>
+    </aside>
+  </div>
+
+  <section class="book-extra" aria-label="Book through Cal.com or send us a message">
+    <div id="cal-embed" hidden></div>
+    <form id="book-form" class="book-form" novalidate>
+      <h2>Prefer to write? Send us a message.</h2>
+      <p class="book-small">We reply within one business day with a proposal of times.</p>
+      <label>Name<input name="name" type="text" autocomplete="name" required></label>
+      <label>Work email<input name="email" type="email" autocomplete="email" required></label>
+      <label>Platform of your voice agent
+        <select name="platform"><option>Vapi</option><option>Retell</option><option>ElevenLabs</option><option>Other</option></select></label>
+      <label>Message<textarea name="message" rows="4" placeholder="What does your agent do, and what must it never get wrong?"></textarea></label>
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0">
+      <button class="btn btn-dark" type="submit">Send</button>
+      <p class="book-form-msg" id="book-form-msg" role="status"></p>
+      <p class="book-small">We only use this to reply to you. See our <a href="privacy.html">privacy policy</a>.</p>
+    </form>
+  </section>
+  <p class="book-privacy" id="book-privacy" hidden>When you pick a time you leave this site for Google Calendar, which has its own <a href="https://policies.google.com/privacy" rel="noopener">privacy policy</a>. We only receive your name, email and the time you choose, and use them to hold the call. <a href="privacy.html">Our privacy policy</a>.</p>
+</div>
+</main>
+<footer class="footer"><div class="wrap"><a href="index.html" class="logo" style="color:var(--ink)"><i></i>ProvaCall</a><nav class="legal-links" aria-label="Legal"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="refunds.html">Refunds</a><a href="legal.html">Legal notice</a><a href="mailto:hello@provacall.com?subject=Data%20deletion%20request%20-%20ProvaCall&amp;body=Hello%2C%0A%0APlease%20delete%20all%20personal%20data%20you%20hold%20about%20me.%0A%0AThe%20email%20address%20I%20used%3A%20%0ACompany%3A%20%0A%0AThank%20you.">Delete my data</a></nav><span>© 2026 ProvaCall</span></div></footer>
+<script>
+/* Réservation. Deux voies :
+   - CAL_URL (Cal.com, gratuit) : s'il est rempli, la réservation s'affiche dans la page (embed) et le formulaire de secours disparaît ;
+   - sinon : le planning Google Agenda ci-dessous (BOOKING_URL), et le formulaire de secours reste visible.
+   Si les deux sont vides, le bouton ouvre un e-mail. */
+(function () {
+  var CAL_URL = "[À COMPLÉTER : mon lien Cal.com]";            // ex. https://cal.com/provacall/20min
+  var BOOKING_URL = "https://calendar.google.com/calendar/appointments/schedules/AcZssZ0tWT9BtVggN-M372kVS3J50daI_ZqF3fgih9y_zaydAvftUIT2Qp4dtdbumGmCAT8x2XnUjrcg";
+  var FORM_ENDPOINT = "https://formsubmit.co/ajax/ecfa1e08d1b7e0739d7d4b8cc7f2d265";   // alias FormSubmit déjà utilisé par le formulaire de pilote
+
+  var btn = document.getElementById("book-btn"), note = document.getElementById("book-note"), priv = document.getElementById("book-privacy");
+  var calOk = /^https:\/\/(app\.)?cal\.com\//.test(CAL_URL);
+  if (calOk) {
+    var box = document.getElementById("cal-embed");
+    box.hidden = false;
+    box.innerHTML = '<iframe title="Book a call" src="' + CAL_URL + (CAL_URL.indexOf("?") > -1 ? "&" : "?") + 'embed=true&theme=light" style="width:100%;min-height:680px;border:0;border-radius:18px" loading="lazy"></iframe>';
+    btn.hidden = true; note.hidden = true;
+    document.getElementById("book-form").hidden = true;
+  } else if (BOOKING_URL) {
+    btn.href = BOOKING_URL; btn.target = "_blank"; btn.rel = "noopener"; priv.hidden = false;
+  } else {
+    btn.textContent = "Email us to book";
+    btn.href = "mailto:hello@provacall.com?subject=" + encodeURIComponent("Call with the ProvaCall founders") +
+      "&body=" + encodeURIComponent("Hi,\n\nI'd like a 20-minute call. Times that work for me (with my time zone):\n1.\n2.\n3.\n\nMy agent / platform:\n\nThanks!");
+    note.textContent = "We reply within one business day with a Google Meet invitation.";
+  }
+
+  var f = document.getElementById("book-form"), msg = document.getElementById("book-form-msg");
+  f.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var d = {}; new FormData(f).forEach(function (v, k) { d[k] = v; });
+    if (!d.name || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email || "")) { msg.textContent = "Please enter your name and a valid email."; return; }
+    msg.textContent = "Sending…";
+    d._subject = "Call request · " + d.name; d._template = "table"; d._captcha = "false";
+    fetch(FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(d) })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); f.reset(); msg.textContent = "Thanks! We will reply within one business day."; })
+      .catch(function () { msg.innerHTML = 'Could not send. Please email <a href="mailto:hello@provacall.com">hello@provacall.com</a>.'; });
+  });
+})();
+</script>
+</body>
+</html>
